@@ -1,0 +1,462 @@
+<!doctype html><html lang="ko"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>AI로 진로설계서 정리하기</title></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one readable column like a filled-in résumé form — ruled fields, a highlighter for the parts you change, copy buttons on every prompt */
+:root{
+  --bg:#F3F6F7; --surface:#FFFFFF; --ink:#15232A; --muted:#55666E; --line:#D3DDE1;
+  --accent:#1B6870; --accent-ink:#FFFFFF; --accent-soft:#E2EFEF;
+  --mark:#FFE58A; --mark-ink:#15232A;
+  --caution:#9E4426; --caution-soft:#FBEDE7;
+  --ai:#EAF0F2; --me:#1B6870; --me-ink:#FFFFFF;
+  --f-display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171B; --surface:#162228; --ink:#E6EEF0; --muted:#9BADB4; --line:#2B3C43;
+  --accent:#62B9BF; --accent-ink:#0F171B; --accent-soft:#1A3236;
+  --mark:#5E4F12; --mark-ink:#FFF3C4;
+  --caution:#F0A184; --caution-soft:#33201A;
+  --ai:#1F2E34; --me:#62B9BF; --me-ink:#0F171B;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#162228; --ink:#E6EEF0; --muted:#9BADB4; --line:#2B3C43;
+  --accent:#62B9BF; --accent-ink:#0F171B; --accent-soft:#1A3236;
+  --mark:#5E4F12; --mark-ink:#FFF3C4;
+  --caution:#F0A184; --caution-soft:#33201A;
+  --ai:#1F2E34; --me:#62B9BF; --me-ink:#0F171B;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:28px 64px;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.35;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.45rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:72px}
+.eyebrow{font-family:var(--f-display);font-size:.82rem;font-weight:600;letter-spacing:.08em;color:var(--accent)}
+.muted{color:var(--muted)}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 .15em;border-radius:3px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* header */
+header{display:flex;flex-direction:column;gap:14px}
+.lead{font-size:1.08rem}
+.outcome{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.outcome span.part{background:var(--accent-soft);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:500;font-size:.95rem}
+.outcome .plus{color:var(--muted);font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.facts div{background:var(--surface);padding:14px 16px;min-width:0}
+.facts dt{font-size:.8rem;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.facts dd{margin:0;font-size:.98rem}
+
+/* nav */
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-inline:-18px;padding-inline:18px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.jump::-webkit-scrollbar{display:none}
+nav.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:.9rem;font-weight:500;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+nav.jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* checklist */
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.checks label{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;cursor:pointer}
+.checks input{width:22px;height:22px;margin-top:4px;accent-color:var(--accent);flex:0 0 auto}
+.checks input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted)}
+.checks small{display:block;color:var(--muted);font-size:.88rem}
+
+/* résumé form */
+.form{background:var(--surface);border:1.5px solid var(--ink);border-radius:4px;overflow:hidden}
+.form .tag{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 14px;background:var(--ink);color:var(--bg);font-size:.85rem;font-weight:600;letter-spacing:.04em}
+.row{display:grid;grid-template-columns:7.5em 1fr;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row > .k{padding:12px 14px;font-weight:700;font-size:.92rem;background:var(--accent-soft);border-right:1px solid var(--line)}
+.row > .v{padding:12px 14px;min-width:0}
+.row ol,.row ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.chk{display:inline-block;font-size:.82rem;font-weight:700;background:var(--mark);color:var(--mark-ink);border-radius:4px;padding:0 6px;margin-left:4px}
+@media (max-width:520px){.row{grid-template-columns:1fr}.row > .k{border-right:0;border-bottom:1px solid var(--line);padding-block:8px}}
+
+/* formula + compare */
+.formula{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--f-display);font-weight:600}
+.formula b{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 12px}
+.formula i{font-style:normal;color:var(--muted)}
+.compare{display:flex;flex-direction:column;gap:10px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,2fr);gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.pair .before{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.pair .arrow{color:var(--accent);font-weight:700}
+.pair .after{font-weight:500}
+@media (max-width:520px){.pair{grid-template-columns:1fr}.pair .arrow{display:none}.pair .before::after{content:" ↓";color:var(--accent);text-decoration:none;display:inline-block;margin-left:4px}}
+
+/* timeline */
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px;display:flex;flex-direction:column;gap:14px}
+.timeline li{position:relative;padding-left:20px;display:grid;grid-template-columns:5.5em 1fr;gap:10px;align-items:baseline}
+.timeline li::before{content:"";position:absolute;left:-7px;top:.65em;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline .t{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-size:.95rem}
+.timeline .d{min-width:0}
+.timeline .p{display:inline-block;font-size:.8rem;font-weight:700;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 8px;margin-left:6px}
+.timeline .o{display:block;color:var(--muted);font-size:.88rem}
+
+/* caution */
+.rules{background:var(--caution-soft);border:1px solid var(--caution);border-radius:var(--r);padding:18px 18px 18px 18px;display:flex;flex-direction:column;gap:12px}
+.rules h2{color:var(--caution)}
+.rules ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:10px}
+.rules b{color:var(--ink)}
+
+/* prompt steps */
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:14px}
+.step-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.num{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:1.15rem;flex:0 0 auto}
+.step-head .time{margin-left:auto;font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.step.optional{border-style:dashed}
+.step.optional .num{background:var(--surface);color:var(--accent);border:2px solid var(--accent)}
+.prompt{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.prompt pre{margin:0;padding:16px 16px 18px;white-space:pre-wrap;font-family:var(--f-body);font-size:1rem;line-height:1.8;overflow-x:auto}
+.prompt .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px 6px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.prompt .bar span{font-size:.82rem;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+button.copy{font:inherit;font-size:.92rem;font-weight:700;border:0;border-radius:8px;padding:8px 16px;background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:40px}
+button.copy:hover{filter:brightness(1.08)}
+button.copy.done{background:var(--ink);color:var(--bg)}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 14px;font-size:.98rem}
+.note b{color:var(--accent)}
+.tip{background:var(--accent-soft);border-radius:var(--r);padding:12px 14px;font-size:.96rem}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.97rem;min-width:0}
+.bubble.ai{background:var(--ai);border-top-left-radius:4px;align-self:flex-start}
+.bubble.me{background:var(--me);color:var(--me-ink);border-top-right-radius:4px;align-self:flex-end}
+.bubble small{display:block;font-size:.75rem;font-weight:700;opacity:.75;letter-spacing:.04em}
+.think{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;list-style:none;padding:0;margin:0}
+.think li{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:.95rem;min-width:0}
+.think b{display:block;font-family:var(--f-display);color:var(--accent)}
+
+/* phrases */
+.phrases{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
+.phrases li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 12px 12px 14px}
+.phrases .when{font-size:.86rem;color:var(--muted);grid-column:1/-1}
+.phrases q{quotes:none;font-weight:500;min-width:0}
+.phrases button.copy{padding:6px 12px;min-height:36px;font-size:.85rem}
+
+/* save & use */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.card h3{font-size:1.02rem}
+.card p{font-size:.95rem;color:var(--muted)}
+.homework{background:var(--mark);color:var(--mark-ink);border-radius:var(--r);padding:12px 16px}
+
+/* faq */
+.faq{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.faq div{padding:14px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.faq dt{font-weight:700;font-family:var(--f-display)}
+.faq dt::before{content:"Q. ";color:var(--accent)}
+.faq dd{margin:0;color:var(--muted)}
+
+footer{border-top:2px solid var(--ink);padding-top:24px;display:flex;flex-direction:column;gap:10px}
+footer blockquote{margin:0;font-family:var(--f-display);font-size:clamp(1.25rem,4.5vw,1.6rem);font-weight:700;line-height:1.5;text-wrap:balance}
+footer blockquote em{font-style:normal;background:linear-gradient(transparent 58%,var(--mark) 58%);color:inherit}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+/* QR */
+.qr{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.qr svg{width:132px;height:132px;flex:0 0 auto;background:#fff;border-radius:6px;padding:4px}
+.qr b{display:block;font-family:var(--f-display);font-size:1.05rem}
+.qr p{font-size:.92rem;color:var(--muted)}
+.qr .url{font-size:.8rem;word-break:break-all;color:var(--muted)}
+.paper{display:inline-block;font-size:.88rem;font-weight:700;border:1.5px dashed var(--muted);color:var(--muted);border-radius:4px;padding:0 6px}
+.plan{display:block;color:var(--muted);font-size:.95rem}
+.plan::before{content:"→ ";color:var(--accent);font-weight:700}
+</style>
+
+<div class="wrap">
+
+<div class="qr">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" role="img" aria-label="이 페이지로 들어오는 QR코드" shape-rendering="crispEdges" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#15232a" d="M2 2.5h7m1 0h1m1 0h2m2 0h1m1 0h8m2 0h7m-33 1h1m5 0h1m1 0h2m1 0h2m1 0h1m2 0h2m1 0h2m1 0h2m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h6m1 0h1m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h5m4 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h3m4 0h2m1 0h1m4 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m4 0h9m1 0h1m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h1m4 0h4m4 0h1m-24 1h1m1 0h2m1 0h3m1 0h3m2 0h6m1 0h1m1 0h1m2 0h1m2 0h1m1 0h2m-33 1h1m2 0h3m1 0h1m2 0h4m2 0h2m1 0h3m1 0h1m2 0h2m1 0h2m1 0h1m-30 1h1m1 0h2m3 0h1m2 0h1m3 0h2m3 0h2m2 0h4m1 0h2m-32 1h3m3 0h2m2 0h1m7 0h2m3 0h2m1 0h1m1 0h1m-30 1h2m2 0h1m1 0h2m1 0h1m2 0h1m1 0h3m1 0h3m2 0h3m2 0h2m2 0h1m-33 1h1m2 0h3m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m4 0h2m1 0h1m2 0h2m-32 1h3m1 0h3m1 0h1m1 0h1m2 0h1m4 0h2m6 0h5m-30 1h1m2 0h2m2 0h2m1 0h1m2 0h2m2 0h1m2 0h2m2 0h2m1 0h1m1 0h1m-31 1h3m1 0h1m1 0h3m7 0h1m1 0h4m1 0h1m1 0h2m1 0h3m-28 1h2m2 0h1m1 0h1m4 0h2m5 0h1m1 0h2m1 0h1m1 0h2m1 0h2m-32 1h1m1 0h1m1 0h2m2 0h1m2 0h2m1 0h2m1 0h1m3 0h1m4 0h2m1 0h2m-31 1h1m2 0h1m3 0h1m1 0h1m3 0h1m2 0h1m4 0h2m4 0h1m-23 1h1m1 0h2m5 0h2m2 0h1m1 0h4m4 0h2m1 0h1m-33 1h2m1 0h1m3 0h6m1 0h10m2 0h2m1 0h1m2 0h1m-30 1h4m1 0h1m2 0h5m1 0h2m1 0h1m2 0h2m1 0h2m2 0h3m-32 1h1m2 0h2m2 0h1m5 0h2m2 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h2m-33 1h1m5 0h3m1 0h1m2 0h1m3 0h4m3 0h5m2 0h1m-24 1h5m2 0h2m2 0h2m1 0h1m1 0h1m3 0h2m-30 1h7m1 0h2m7 0h3m2 0h3m1 0h1m1 0h1m2 0h1m-32 1h1m5 0h1m1 0h4m1 0h2m1 0h3m2 0h1m1 0h2m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m1 0h2m1 0h6m1 0h1m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h1m1 0h2m5 0h1m3 0h1m4 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h6m3 0h2m1 0h1m1 0h2m1 0h2m-31 1h1m5 0h1m2 0h4m4 0h1m1 0h2m1 0h3m1 0h3m3 0h1m-33 1h7m1 0h1m1 0h1m1 0h3m1 0h8m4 0h1m1 0h1"/></svg>
+
+  <div><b>휴대폰 카메라로 찍어 보세요</b><p>이 안내 페이지가 열립니다. 실습이 끝난 뒤에도 다시 열 수 있습니다.</p><span class="url">raylove0504-lgtm.github.io/ai-practice/02.html</span></div>
+</div>
+
+<header>
+  <span class="eyebrow">경력지원서비스 · 실습 02</span>
+  <h1>AI로 진로설계서 정리하기</h1>
+  <p class="lead">활동지에 적어 둔 내용을 AI와 함께 정리해서, 나의 진로설계서 초안을 휴대폰에 완성해 갑니다.</p>
+  <div class="outcome" aria-label="오늘 만들 결과물">
+    <span class="part">나를 정리한 한 장</span><span class="plus">+</span>
+    <span class="part">목표 4단계</span><span class="plus">+</span>
+    <span class="part">실천계획</span>
+  </div>
+  <dl class="facts">
+    <div><dt>결과물</dt><dd>진로설계서 초안 1장 (휴대폰 메모장에 저장)</dd></div>
+    <div><dt>준비물</dt><dd>휴대폰 AI 앱 1개(ChatGPT·Gemini·Copilot 등), 지금까지 쓴 활동지(워크북), 펜</dd></div>
+  </dl>
+</header>
+
+<nav class="jump" aria-label="바로가기">
+  <a href="#ready">준비</a><a href="#example">예시</a><a href="#flow">순서</a><a href="#rules">안전 수칙</a><a href="#prompts">프롬프트</a><a href="#stuck">막힐 때</a><a href="#check">점검</a><a href="#save">저장·활용</a><a href="#faq">질문</a>
+</nav>
+
+<section id="ready">
+  <h2>시작 전 준비</h2>
+  <p class="muted">하나씩 눌러 확인해 보세요. 어려운 부분은 짝이나 강사에게 도움을 청하셔도 됩니다.</p>
+  <ul class="checks">
+    <li><label for="r1"><input type="checkbox" id="r1"><span>AI 앱 설치와 로그인<small>앱이 없으면 짝의 화면을 함께 쓰셔도 됩니다</small></span></label></li>
+    <li><label for="r2"><input type="checkbox" id="r2"><span>교육장 와이파이 연결</span></label></li>
+    <li><label for="r3"><input type="checkbox" id="r3"><span>메모장 앱 찾아 두기<small>결과물을 저장할 곳입니다</small></span></label></li>
+    <li><label for="r4"><input type="checkbox" id="r4"><span>키보드의 마이크 버튼 찾아 두기<small>누르고 말하면 글자로 입력됩니다</small></span></label></li>
+    <li><label for="r5"><input type="checkbox" id="r5"><span>활동지 펼쳐 두기<small>강점·흥미·가치, 진로 방향, 배우고 싶은 것을 적은 장을 먼저 찾아 둡니다. 다 채우지 못했어도 괜찮습니다</small></span></label></li>
+  </ul>
+</section>
+
+<section id="example">
+  <h2>오늘 만들 진로설계서 예시</h2>
+  <p>아래는 <b>가상 인물</b>(공공기관 사무직 · 일반행정 25년)의 예시입니다. 실습이 끝나면 여러분도 이런 모양의 진로설계서를 하나씩 갖게 됩니다.</p>
+  <div class="form" role="group" aria-label="진로설계서 ① 예시">
+    <div class="tag"><span>진로설계서 ① 나를 정리하고 방향 정하기</span><span>예시 · 가상 인물</span></div>
+    <div class="row"><div class="k">자기탐색·강점</div><div class="v">꼼꼼함, 위기 대응력, 사람을 편안하게 하는 태도<br><span class="muted">흥미유형 사회형+관습형 · 직업가치 직업안정·봉사·몸과 마음의 여유</span></div></div>
+    <div class="row"><div class="k">목표 직무</div><div class="v">1순위 관리사무소 행정보조, 2순위 돌봄시설 안내·관리<br><span class="muted">문서 업무와 민원 응대 25년 경험을 살립니다</span></div></div>
+    <div class="row"><div class="k">자기개발</div><div class="v">엑셀·한글 기초 교육 (국민내일배움카드 과정) <span class="chk">[확인 필요: 과정 이름]</span></div></div>
+    <div class="row"><div class="k">가족·사회관계</div><div class="v">주 1회 자녀에게 먼저 안부 전화, 복지관 동아리 1곳 가입</div></div>
+    <div class="row"><div class="k">건강·여가</div><div class="v">주 4회 30분 걷기, 하루 6시간 이내 근무</div></div>
+    <div class="row"><div class="k">자산관리</div><div class="v"><span class="paper">(종이에 직접)</span></div></div>
+    <div class="row"><div class="k">사회공헌</div><div class="v">주민센터 행정 봉사 <span class="chk">[확인 필요: 모집 여부]</span></div></div>
+  </div>
+  <div class="form" role="group" aria-label="진로설계서 ② 예시">
+    <div class="tag"><span>진로설계서 ② 목표와 실천계획</span><span>예시 · 가상 인물</span></div>
+    <div class="row"><div class="k">금년 목표</div><div class="v">진로 방향 확정<br><span class="plan">이번 주에 고용24 직업선호도검사, 이번 달 안에 중장년내일센터 상담 예약</span></div></div>
+    <div class="row"><div class="k">단기 (1년)</div><div class="v">관리사무소 행정보조로 재취업<br><span class="plan">매주 월요일 고용24에서 공고 2건 확인, 2개월 안에 엑셀 기초 과정 마치기</span></div></div>
+    <div class="row"><div class="k">중기 (2~3년)</div><div class="v">일터에서 오래 일하기<br><span class="plan">일하면서 시설 행정 실무 익히기</span> <span class="chk">[확인 필요: 도움이 될 자격]</span></div></div>
+    <div class="row"><div class="k">장기 (5년 이후)</div><div class="v">일과 봉사를 함께<br><span class="plan">주 3일 일하고 주 1회 봉사하기</span></div></div>
+    <div class="row"><div class="k">나의 다짐</div><div class="v"><b>25년의 꼼꼼함으로 다음 일터에서도 믿음을 주는 사람이 되겠습니다.</b></div></div>
+  </div>
+  <p class="muted"><mark>[확인 필요]</mark>는 AI가 지어내지 않고 여러분께 되묻는 표시입니다. <span class="paper">(종이에 직접)</span>은 돈과 관련된 내용이라 AI에 넣지 않고 활동지에만 적는다는 뜻입니다.</p>
+</section>
+
+<section id="secret">
+  <h2>좋은 실천계획의 비밀</h2>
+  <div class="formula" aria-label="실천계획 공식"><b>언제</b><i>→</i><b>무엇을</b><i>→</i><b>어떻게(얼마나)</b></div>
+  <p>이번 주에 할 수 있는 일이 하나만 있어도 계획이 움직이기 시작합니다.</p>
+  <div class="compare">
+    <div class="pair"><span class="before">건강 챙기기</span><span class="arrow">→</span><span class="after">이번 달부터 주 4회, 동네 산책로에서 30분씩 걷기</span></div>
+    <div class="pair"><span class="before">공부하기</span><span class="arrow">→</span><span class="after">11월에 국민내일배움카드로 엑셀 기초 과정 신청하기</span></div>
+    <div class="pair"><span class="before">재취업 준비</span><span class="arrow">→</span><span class="after">매주 월요일 고용24에서 관리사무소 공고 2건 확인하기</span></div>
+  </div>
+  <p class="tip">목표가 크게 느껴지면 더 작게 나눠도 됩니다. <b>"할 수 있는 크기"가 가장 좋은 크기입니다.</b></p>
+</section>
+
+<section id="flow">
+  <h2>실습 순서</h2>
+  <ol class="timeline">
+    <li><span class="t">1단계</span><span class="d">오늘 만들 결과물과 안전 수칙을 확인합니다</span></li>
+    <li><span class="t">2단계</span><span class="d">AI 앱을 열고 시작 프롬프트를 붙여 넣습니다<span class="p">①</span><span class="o">대화 시작</span></span></li>
+    <li><span class="t">3단계</span><span class="d">활동지에 적은 내용을 AI에게 옮겨 보냅니다<span class="p">②</span><span class="o">활동지 메모</span></span></li>
+    <li><span class="t">4단계</span><span class="d">AI의 질문에 답하며 빈칸을 채웁니다<span class="p">③</span><span class="o">보완 메모</span></span></li>
+    <li><span class="t">5단계</span><span class="d">진로설계서 초안을 만듭니다<span class="p">④</span><span class="o">진로설계서 초안</span></span></li>
+    <li><span class="t">6단계</span><span class="d">체크리스트로 짝과 서로 확인하고 고칩니다<span class="o">수정본</span></span></li>
+    <li><span class="t">7단계</span><span class="d">메모장에 저장하고, 짝과 다짐 한마디를 나눕니다<span class="o">최종 저장</span></span></li>
+  </ol>
+</section>
+
+<section id="rules" class="rules">
+  <h2>안전 수칙 3가지</h2>
+  <p>실습하는 동안 꼭 지켜 주세요.</p>
+  <ol>
+    <li><b>개인정보와 돈·건강 기록은 넣지 않습니다.</b> 이름·주민번호·연락처·주소는 쓰지 않고, 회사명은 "○○공단"처럼 바꿉니다. 재무 활동지의 금액과 스트레스·식생활·치매 점검 점수도 AI에 넣지 않고 종이에만 적습니다.</li>
+    <li><b>"지어내지 말아 주세요"를 꼭 붙입니다.</b> 모르는 내용은 AI가 [확인 필요]로 표시하도록 요청합니다.</li>
+    <li><b>목표는 내가 정합니다.</b> AI가 쓴 글은 초안입니다. AI가 알려 주는 직업·교육·제도 이름은 고용24나 담당 기관에서 다시 확인합니다.</li>
+  </ol>
+</section>
+
+<section id="prompts">
+  <h2>실습 프롬프트</h2>
+  <p><b>복사</b> 버튼을 누른 뒤 AI 앱 입력창에 붙여 넣으세요. <mark>노란색</mark> 부분만 내 내용으로 바꾸면 됩니다.</p>
+
+  <article class="step" id="p1">
+    <div class="step-head"><span class="num">①</span><h3>시작하기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ①</span><button class="copy" type="button" data-target="t1">복사</button></div>
+<pre id="t1">저는 재취업을 준비하는 중장년 구직자입니다.
+교육에서 쓴 활동지를 바탕으로 '진로설계서'를 정리하고 싶습니다.
+제가 활동지 내용을 먼저 보내 드리겠습니다.
+지금은 글을 쓰지 말고, 받을 준비가 됐는지만 알려 주세요.
+쉽고 짧은 말로 대화해 주세요.</pre></div>
+    <p class="note"><b>이렇게 이어집니다</b> — AI가 "활동지 내용을 보내 주세요"처럼 답하면 잘된 것입니다. AI가 바로 긴 글을 쓰기 시작하면 "아직 쓰지 말고 기다려 주세요"라고 입력하세요.</p>
+  </article>
+
+  <article class="step" id="p2">
+    <div class="step-head"><span class="num">②</span><h3>활동지 내용 옮기기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ②</span><button class="copy" type="button" data-target="t2">복사</button></div>
+<pre id="t2">아래는 제 활동지 메모입니다. 아직 정리하지 말고, 잘 받았다고만 알려 주세요.
+- 대표 강점: <mark>【예) 꼼꼼함, 위기 대응력】</mark>
+- 흥미유형: <mark>【예) 사회형+관습형】</mark>
+- 중요한 직업가치: <mark>【예) 직업안정, 봉사, 몸과 마음의 여유】</mark>
+- 살릴 수 있는 경력·자격: <mark>【예) 문서 업무와 민원 응대 25년】</mark>
+- 가장 마음이 가는 진로 방향과 관심 직업: <mark>【예) 경력활용 재취업 — 관리사무소 행정보조】</mark>
+- 배우고 싶은 것(교육·자격): <mark>【예) 엑셀·한글 기초】</mark>
+- 가족·관계에서 바꾸고 싶은 것: <mark>【예) 자녀에게 먼저 연락하기】</mark>
+- 건강·여가 계획: <mark>【예) 주 4회 걷기】</mark>
+- 봉사·나눔 계획: <mark>【있으면】</mark>
+- 일하고 싶은 조건(시간·지역 등): <mark>【예) 하루 6시간 이내, 집에서 30분 거리】</mark></pre></div>
+    <p class="note"><b>이렇게 하세요</b> — 활동지를 보며 노란 칸을 내 내용으로 바꿉니다. 채우지 못한 칸은 "아직 모름"이라고 적거나 그 줄을 지워도 됩니다. 타자가 불편하면 마이크로 말해도 됩니다.</p>
+    <p class="tip">예시는 지우고 내 내용만 남깁니다. <b>돈 금액과 건강 점검 점수는 적지 않습니다.</b></p>
+  </article>
+
+  <article class="step" id="p3">
+    <div class="step-head"><span class="num">③</span><h3>빈칸 채우기 — 질문 받기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ③</span><button class="copy" type="button" data-target="t3">복사</button></div>
+<pre id="t3">제 활동지 메모를 보고, 진로설계서를 쓰기에 부족하거나 두루뭉실한 부분을 질문해 주세요.
+- 한 번에 질문 하나씩, 모두 3개까지만 해 주세요.
+- 특히 목표 직무와 '이번 주에 할 수 있는 일'을 구체적으로 여쭤봐 주세요.
+- 돈이나 건강 검사 결과는 묻지 말아 주세요.
+- 제가 말하지 않은 내용은 지어내지 말아 주세요.</pre></div>
+    <h3>대화 예시 <span class="muted" style="font-weight:500;font-size:.9rem">가상 인물</span></h3>
+    <div class="chat">
+      <p class="bubble ai"><small>AI</small>관심 직업으로 '관리사무소 행정보조'를 적으셨는데, 하루에 몇 시간 정도 일하고 싶으세요?</p>
+      <p class="bubble me"><small>나</small>하루 6시간 이내요.</p>
+      <p class="bubble ai"><small>AI</small>배우고 싶은 것으로 '컴퓨터'를 적으셨는데, 어떤 프로그램을 말씀하시는 건가요?</p>
+      <p class="bubble me"><small>나</small>엑셀이랑 한글이요.</p>
+      <p class="bubble ai"><small>AI</small>이번 주에 할 수 있는 일을 하나만 고른다면 무엇일까요?</p>
+      <p class="bubble me"><small>나</small>고용24에서 직업선호도검사를 해 보려고요.</p>
+    </div>
+    <h3>답할 때 이런 것을 떠올려 보세요</h3>
+    <ul class="think">
+      <li><b>목표 직무</b>여러 개라면 1순위와 2순위는 무엇인가요?</li>
+      <li><b>일하는 조건</b>하루 몇 시간, 일주일에 며칠, 어디까지 다닐 수 있나요?</li>
+      <li><b>배울 것</b>언제, 어디서 배울 생각인가요?</li>
+      <li><b>이번 주</b>30분 안에 할 수 있는 일은 무엇인가요?</li>
+    </ul>
+  </article>
+
+  <article class="step" id="p4">
+    <div class="step-head"><span class="num">④</span><h3>진로설계서 만들기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ④</span><button class="copy" type="button" data-target="t4">복사</button></div>
+<pre id="t4">지금까지 제가 말한 내용만으로 '진로설계서' 초안을 만들어 주세요.
+[진로설계서 ①] 아래 항목별로 한두 줄씩
+- 자기탐색 결과·대표 강점
+- 직업/경력 (목표 직무 1~2순위와 그 이유)
+- 자기개발 (교육·자격)
+- 가족·사회관계
+- 건강·여가
+- 사회공헌
+- 자산관리는 쓰지 말고 "(종이에 직접)"이라고만 적어 주세요.
+[진로설계서 ②]
+- 금년·단기(1년)·중기(2~3년)·장기(5년 이후) 목표를 한 줄씩
+- 목표마다 실천계획을 '언제·무엇을·어떻게'로 한 줄씩
+- 마지막에 '나의 다짐' 한 문장
+조건:
+- 제가 말한 사실과 계획만 쓰고, 지어내지 말아 주세요.
+- 제가 말하지 않았거나 확실하지 않은 부분은 [확인 필요]라고 표시해 주세요.
+- 표는 쓰지 말고, 휴대폰 메모장에 옮기기 좋게 짧은 목록으로 써 주세요.</pre></div>
+    <div class="note"><b>결과가 나오면 이렇게 확인하세요</b>
+      <ul style="margin:6px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px">
+        <li>목표 직무가 내가 정한 것과 같은지 확인합니다.</li>
+        <li>내가 말하지 않은 직업·교육·제도가 들어 있으면 "○○은 제가 말하지 않았습니다"라고 알려 주세요.</li>
+        <li>실천계획에 '언제'가 빠졌으면 '막힐 때 쓰는 짧은 말'을 써서 다시 요청합니다.</li>
+        <li>마음에 드는 결과가 나오면 이 단계에서 먼저 메모장에 복사해 두세요.</li>
+      </ul>
+    </div>
+  </article>
+
+  <article class="step optional" id="p5">
+    <div class="step-head"><span class="num">⑤</span><h3>더 해 보기 — 이번 달 실천 달력</h3><span class="time">선택 · 시간이 남으면</span></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ⑤</span><button class="copy" type="button" data-target="t5">복사</button></div>
+<pre id="t5">위 진로설계서의 금년 목표를 이번 달 4주로 나눠 주세요.
+- 한 주에 한 가지씩, 30분 안에 할 수 있는 크기로 적어 주세요.
+- 제가 말한 계획 안에서만 나누고, 지어내지 말아 주세요.
+- 확실하지 않은 부분은 [확인 필요]라고 표시해 주세요.</pre></div>
+  </article>
+</section>
+
+<section id="stuck">
+  <h2>막힐 때 쓰는 짧은 말</h2>
+  <p class="muted">AI의 답이 마음에 들지 않을 때, 아래 한 줄을 복사해 입력하면 됩니다.</p>
+  <ul class="phrases">
+    <li><span class="when">말이 어렵거나 길 때</span><q id="s1">더 쉬운 말로, 더 짧게 써 주세요.</q><button class="copy" type="button" data-target="s1">복사</button></li>
+    <li><span class="when">목표가 너무 커 보일 때</span><q id="s2">목표를 제가 할 수 있는 크기로 조금 더 작게 나눠 주세요.</q><button class="copy" type="button" data-target="s2">복사</button></li>
+    <li><span class="when">실천계획이 두루뭉실할 때</span><q id="s3">실천계획마다 언제·무엇을·어떻게를 넣어 다시 써 주세요.</q><button class="copy" type="button" data-target="s3">복사</button></li>
+    <li><span class="when">내가 말하지 않은 내용이 있을 때</span><q id="s4">○○은 제가 말하지 않았습니다. 빼고 다시 써 주세요.</q><button class="copy" type="button" data-target="s4">복사</button></li>
+    <li><span class="when">빠뜨린 내용이 있을 때</span><q id="s5">○○도 계획하고 있습니다. 이 내용을 넣어 다시 써 주세요.</q><button class="copy" type="button" data-target="s5">복사</button></li>
+    <li><span class="when">표가 휴대폰에서 깨져 보일 때</span><q id="s6">표 말고 짧은 목록으로 다시 써 주세요.</q><button class="copy" type="button" data-target="s6">복사</button></li>
+    <li><span class="when">질문을 한꺼번에 여러 개 할 때</span><q id="s7">하나씩 물어봐 주세요.</q><button class="copy" type="button" data-target="s7">복사</button></li>
+  </ul>
+  <p class="tip">대화가 꼬여 처음부터 하고 싶을 때는 앱에서 '새 대화'를 누르고 프롬프트 ①부터 다시 붙여 넣으세요.</p>
+</section>
+
+<section id="check">
+  <h2>사실 확인 체크리스트</h2>
+  <p class="muted">완성한 진로설계서를 짝과 함께 아래 네 가지로 확인합니다.</p>
+  <ul class="checks">
+    <li><label for="c1"><input type="checkbox" id="c1"><span>내가 활동지에 적었거나 말한 내용만 들어 있나요?</span></label></li>
+    <li><label for="c2"><input type="checkbox" id="c2"><span>목표 직무가 내가 정한 것과 같나요? AI가 새로 넣은 직업·제도·숫자는 없나요?</span></label></li>
+    <li><label for="c3"><input type="checkbox" id="c3"><span>실천계획마다 '언제'가 들어 있나요? 이번 주에 할 일이 하나 이상 있나요?</span></label></li>
+    <li><label for="c4"><input type="checkbox" id="c4"><span>[확인 필요] 표시는 채웠거나 지웠나요?</span></label></li>
+  </ul>
+</section>
+
+<section id="save">
+  <h2>저장하는 방법</h2>
+  <p class="muted">AI 앱의 대화는 나중에 찾기 어려울 수 있으니, 편한 방법으로 꼭 저장해 두세요.</p>
+  <div class="cols">
+    <div class="card"><h3>메모장에 붙여 넣기</h3><p>AI의 답을 길게 눌러 '복사'한 뒤 메모장에 붙여 넣고 "내 진로설계서"로 저장합니다.</p></div>
+    <div class="card"><h3>나에게 보내기</h3><p>카카오톡 '나와의 채팅' 같은 곳에 붙여 넣어 두면 컴퓨터에서도 쉽게 꺼내 씁니다.</p></div>
+    <div class="card"><h3>화면 캡처</h3><p>복사가 어려울 때 씁니다. 다만 글자를 고치려면 나중에 다시 입력해야 합니다.</p></div>
+  </div>
+
+  <h2 style="margin-top:14px">실습 후 이렇게 활용하세요</h2>
+  <div class="cols">
+    <div class="card"><h3>활동지 진로설계서</h3><p>AI 초안을 보며 활동지의 진로설계서 장에 내 글씨로 옮겨 적습니다. 자산관리 칸은 재무 활동지를 보며 종이에 직접 적습니다.</p></div>
+    <div class="card"><h3>고용24</h3><p>목표 직무로 채용공고를 찾아보고, 직업선호도검사로 방향을 다시 확인합니다(www.work24.go.kr).</p></div>
+    <div class="card"><h3>이력서</h3><p><a href="01.html">'AI로 이력서·프로필 쓰기' 실습(01)</a>에서 만든 한 줄 소개를 목표 직무에 맞게 다듬습니다.</p></div>
+    <div class="card"><h3>사후 상담</h3><p>진로설계서를 가져오시면 상담사와 함께 목표 직무에 맞는 일자리를 찾고 실천계획을 점검합니다.</p></div>
+  </div>
+  <p class="homework"><b>집에서 할 일</b> — [확인 필요]로 남은 내용(교육 과정 이름, 자격 이름, 신청 시기)을 고용24, Q-Net(www.q-net.or.kr), 중장년내일센터(☎ 1350)에서 확인해 채워 두세요.</p>
+</section>
+
+<section id="faq">
+  <h2>자주 묻는 질문</h2>
+  <dl class="faq">
+    <div><dt>활동지를 다 채우지 못했어요.</dt><dd>채운 칸만 보내셔도 됩니다. 빈칸은 ③에서 AI의 질문에 답하며 채우고, 그래도 비어 있으면 사후 상담 때 함께 채웁니다.</dd></div>
+    <div><dt>활동지를 사진으로 찍어 보내도 되나요?</dt><dd>됩니다. 다만 맨 위 성명 칸은 손으로 가리고, 재무 활동지와 건강 점검표(스트레스·식생활·치매)는 찍지 않습니다. 손글씨는 AI가 잘못 읽을 수 있으니, 정리된 내용을 꼭 확인해 주세요.</dd></div>
+    <div><dt>AI가 추천한 직업이 더 좋아 보여요.</dt><dd>바로 목표로 넣지 말고 [확인 필요]로 두세요. 고용24 직업정보에서 하는 일과 필요한 자격을 확인한 뒤, 상담 때 함께 이야기해 보면 좋습니다.</dd></div>
+  </dl>
+</section>
+
+<footer>
+  <span class="eyebrow">기억해 주세요</span>
+  <blockquote>AI는 정리를 돕는 도우미이고, <em>내 인생 후반의 설계자는 나</em>입니다.</blockquote>
+</footer>
+
+</div>
+
+
+<script>
+document.querySelectorAll('button.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var el = document.getElementById(btn.dataset.target);
+    if(!el) return;
+    var text = el.textContent.trim();
+    var done = function(){
+      var old = '복사';
+      btn.textContent = '복사됨';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1800);
+    };
+    var fallback = function(){
+      try{
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = '길게 눌러 복사';
+        setTimeout(function(){ btn.textContent = '복사'; }, 2500);
+      }catch(e){}
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    }catch(e){ fallback(); }
+  });
+});
+</script>
+
+</body></html>
