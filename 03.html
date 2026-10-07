@@ -1,0 +1,342 @@
+<!doctype html><html lang="ko"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>AI로 채용공고 읽고 따져 보기</title></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one readable column like a filled-in résumé form — ruled fields, a highlighter for the parts you change, copy buttons on every prompt */
+:root{
+  --bg:#F3F6F7; --surface:#FFFFFF; --ink:#15232A; --muted:#55666E; --line:#D3DDE1;
+  --accent:#1B6870; --accent-ink:#FFFFFF; --accent-soft:#E2EFEF;
+  --mark:#FFE58A; --mark-ink:#15232A;
+  --caution:#9E4426; --caution-soft:#FBEDE7;
+  --ai:#EAF0F2; --me:#1B6870; --me-ink:#FFFFFF;
+  --f-display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F171B; --surface:#162228; --ink:#E6EEF0; --muted:#9BADB4; --line:#2B3C43;
+  --accent:#62B9BF; --accent-ink:#0F171B; --accent-soft:#1A3236;
+  --mark:#5E4F12; --mark-ink:#FFF3C4;
+  --caution:#F0A184; --caution-soft:#33201A;
+  --ai:#1F2E34; --me:#62B9BF; --me-ink:#0F171B;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F171B; --surface:#162228; --ink:#E6EEF0; --muted:#9BADB4; --line:#2B3C43;
+  --accent:#62B9BF; --accent-ink:#0F171B; --accent-soft:#1A3236;
+  --mark:#5E4F12; --mark-ink:#FFF3C4;
+  --caution:#F0A184; --caution-soft:#33201A;
+  --ai:#1F2E34; --me:#62B9BF; --me-ink:#0F171B;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:760px;margin:0 auto;padding-inline:18px;padding-block:28px 64px;display:flex;flex-direction:column;gap:44px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.35;text-wrap:balance;margin:0}
+h1{font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.45rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:72px}
+.eyebrow{font-family:var(--f-display);font-size:.82rem;font-weight:600;letter-spacing:.08em;color:var(--accent)}
+.muted{color:var(--muted)}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 .15em;border-radius:3px}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* header */
+header{display:flex;flex-direction:column;gap:14px}
+.lead{font-size:1.08rem}
+.outcome{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.outcome span.part{background:var(--accent-soft);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:500;font-size:.95rem}
+.outcome .plus{color:var(--muted);font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.facts div{background:var(--surface);padding:14px 16px;min-width:0}
+.facts dt{font-size:.8rem;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.facts dd{margin:0;font-size:.98rem}
+
+/* nav */
+nav.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-inline:-18px;padding-inline:18px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.jump::-webkit-scrollbar{display:none}
+nav.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:.9rem;font-weight:500;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+nav.jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* checklist */
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.checks label{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;cursor:pointer}
+.checks input{width:22px;height:22px;margin-top:4px;accent-color:var(--accent);flex:0 0 auto}
+.checks input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--muted)}
+.checks small{display:block;color:var(--muted);font-size:.88rem}
+
+/* résumé form */
+.form{background:var(--surface);border:1.5px solid var(--ink);border-radius:4px;overflow:hidden}
+.form .tag{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 14px;background:var(--ink);color:var(--bg);font-size:.85rem;font-weight:600;letter-spacing:.04em}
+.row{display:grid;grid-template-columns:7.5em 1fr;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}
+.row > .k{padding:12px 14px;font-weight:700;font-size:.92rem;background:var(--accent-soft);border-right:1px solid var(--line)}
+.row > .v{padding:12px 14px;min-width:0}
+.row ol,.row ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+.chk{display:inline-block;font-size:.82rem;font-weight:700;background:var(--mark);color:var(--mark-ink);border-radius:4px;padding:0 6px;margin-left:4px}
+@media (max-width:520px){.row{grid-template-columns:1fr}.row > .k{border-right:0;border-bottom:1px solid var(--line);padding-block:8px}}
+
+/* formula + compare */
+.formula{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--f-display);font-weight:600}
+.formula b{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 12px}
+.formula i{font-style:normal;color:var(--muted)}
+.compare{display:flex;flex-direction:column;gap:10px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,2fr);gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.pair .before{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.pair .arrow{color:var(--accent);font-weight:700}
+.pair .after{font-weight:500}
+@media (max-width:520px){.pair{grid-template-columns:1fr}.pair .arrow{display:none}.pair .before::after{content:" ↓";color:var(--accent);text-decoration:none;display:inline-block;margin-left:4px}}
+
+/* timeline */
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:6px;display:flex;flex-direction:column;gap:14px}
+.timeline li{position:relative;padding-left:20px;display:grid;grid-template-columns:5.5em 1fr;gap:10px;align-items:baseline}
+.timeline li::before{content:"";position:absolute;left:-7px;top:.65em;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.timeline .t{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-size:.95rem}
+.timeline .d{min-width:0}
+.timeline .p{display:inline-block;font-size:.8rem;font-weight:700;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:0 8px;margin-left:6px}
+.timeline .o{display:block;color:var(--muted);font-size:.88rem}
+
+/* caution */
+.rules{background:var(--caution-soft);border:1px solid var(--caution);border-radius:var(--r);padding:18px 18px 18px 18px;display:flex;flex-direction:column;gap:12px}
+.rules h2{color:var(--caution)}
+.rules ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:10px}
+.rules b{color:var(--ink)}
+
+/* prompt steps */
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 18px;display:flex;flex-direction:column;gap:14px}
+.step-head{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.num{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:1.15rem;flex:0 0 auto}
+.step-head .time{margin-left:auto;font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.step.optional{border-style:dashed}
+.step.optional .num{background:var(--surface);color:var(--accent);border:2px solid var(--accent)}
+.prompt{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.prompt pre{margin:0;padding:16px 16px 18px;white-space:pre-wrap;font-family:var(--f-body);font-size:1rem;line-height:1.8;overflow-x:auto}
+.prompt .bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px 6px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.prompt .bar span{font-size:.82rem;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+button.copy{font:inherit;font-size:.92rem;font-weight:700;border:0;border-radius:8px;padding:8px 16px;background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:40px}
+button.copy:hover{filter:brightness(1.08)}
+button.copy.done{background:var(--ink);color:var(--bg)}
+.note{border-left:3px solid var(--accent);padding:2px 0 2px 14px;font-size:.98rem}
+.note b{color:var(--accent)}
+.tip{background:var(--accent-soft);border-radius:var(--r);padding:12px 14px;font-size:.96rem}
+
+/* chat */
+.chat{display:flex;flex-direction:column;gap:8px}
+.bubble{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.97rem;min-width:0}
+.bubble.ai{background:var(--ai);border-top-left-radius:4px;align-self:flex-start}
+.bubble.me{background:var(--me);color:var(--me-ink);border-top-right-radius:4px;align-self:flex-end}
+.bubble small{display:block;font-size:.75rem;font-weight:700;opacity:.75;letter-spacing:.04em}
+.think{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;list-style:none;padding:0;margin:0}
+.think li{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:.95rem;min-width:0}
+.think b{display:block;font-family:var(--f-display);color:var(--accent)}
+
+/* phrases */
+.phrases{display:flex;flex-direction:column;gap:8px;list-style:none;margin:0;padding:0}
+.phrases li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 12px 12px 14px}
+.phrases .when{font-size:.86rem;color:var(--muted);grid-column:1/-1}
+.phrases q{quotes:none;font-weight:500;min-width:0}
+.phrases button.copy{padding:6px 12px;min-height:36px;font-size:.85rem}
+
+/* save & use */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.card h3{font-size:1.02rem}
+.card p{font-size:.95rem;color:var(--muted)}
+.homework{background:var(--mark);color:var(--mark-ink);border-radius:var(--r);padding:12px 16px}
+
+/* faq */
+.faq{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.faq div{padding:14px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.faq dt{font-weight:700;font-family:var(--f-display)}
+.faq dt::before{content:"Q. ";color:var(--accent)}
+.faq dd{margin:0;color:var(--muted)}
+
+footer{border-top:2px solid var(--ink);padding-top:24px;display:flex;flex-direction:column;gap:10px}
+footer blockquote{margin:0;font-family:var(--f-display);font-size:clamp(1.25rem,4.5vw,1.6rem);font-weight:700;line-height:1.5;text-wrap:balance}
+footer blockquote em{font-style:normal;background:linear-gradient(transparent 58%,var(--mark) 58%);color:inherit}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+
+/* QR */
+.qr{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.qr svg{width:132px;height:132px;flex:0 0 auto;background:#fff;border-radius:6px;padding:4px}
+.qr b{display:block;font-family:var(--f-display);font-size:1.05rem}
+.qr p{font-size:.92rem;color:var(--muted)}
+.qr .url{font-size:.8rem;word-break:break-all;color:var(--muted)}
+.paper{display:inline-block;font-size:.88rem;font-weight:700;border:1.5px dashed var(--muted);color:var(--muted);border-radius:4px;padding:0 6px}
+.plan{display:block;color:var(--muted);font-size:.95rem}
+.plan::before{content:"→ ";color:var(--accent);font-weight:700}
+.warn{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.warn li{background:var(--caution-soft);border:1px solid var(--caution);border-radius:var(--r);padding:10px 14px;font-size:.96rem}
+.warn b{color:var(--caution)}
+.qlist{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+</style>
+
+<div class="wrap">
+<div class="qr">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" role="img" aria-label="이 페이지로 들어오는 QR코드" shape-rendering="crispEdges" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#15232a" d="M2 2.5h7m1 0h4m2 0h1m1 0h8m2 0h7m-33 1h1m5 0h1m1 0h1m2 0h2m1 0h1m2 0h2m1 0h2m1 0h2m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m1 0h4m1 0h1m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m5 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m2 0h1m2 0h1m3 0h2m1 0h1m4 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m6 0h7m1 0h1m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h1m1 0h2m3 0h4m4 0h1m-24 1h1m1 0h2m1 0h3m1 0h3m2 0h6m1 0h1m1 0h1m2 0h1m2 0h1m1 0h2m-30 1h1m1 0h1m1 0h1m2 0h4m2 0h2m1 0h3m1 0h1m2 0h2m1 0h2m1 0h1m-30 1h1m2 0h1m3 0h1m2 0h1m3 0h2m3 0h2m2 0h4m1 0h2m-33 1h1m1 0h2m3 0h3m1 0h1m7 0h2m3 0h2m1 0h1m1 0h1m-30 1h2m1 0h5m2 0h1m1 0h1m1 0h3m1 0h3m2 0h3m2 0h2m2 0h1m-33 1h2m2 0h1m3 0h7m2 0h1m1 0h1m4 0h2m1 0h1m2 0h2m-32 1h2m1 0h5m2 0h1m1 0h2m4 0h2m6 0h5m-30 1h1m2 0h2m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m2 0h2m1 0h1m1 0h1m-31 1h2m2 0h1m1 0h1m1 0h1m7 0h1m1 0h4m1 0h1m1 0h2m1 0h3m-31 1h1m2 0h2m2 0h1m1 0h1m4 0h2m5 0h1m1 0h2m1 0h1m1 0h2m1 0h2m-33 1h2m1 0h1m1 0h2m2 0h2m1 0h5m1 0h1m3 0h1m4 0h2m1 0h2m-31 1h1m2 0h2m2 0h1m4 0h1m3 0h1m4 0h2m4 0h1m-25 1h1m1 0h1m3 0h1m1 0h1m2 0h2m2 0h1m1 0h4m4 0h2m1 0h1m-33 1h1m1 0h1m2 0h1m3 0h1m1 0h2m1 0h10m2 0h2m1 0h1m2 0h1m-31 1h1m1 0h4m5 0h3m1 0h2m1 0h1m2 0h2m1 0h2m2 0h3m-32 1h1m1 0h3m2 0h1m3 0h1m1 0h2m2 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h2m-33 1h1m5 0h3m1 0h2m1 0h1m3 0h4m3 0h5m2 0h1m-24 1h1m1 0h3m2 0h2m2 0h2m1 0h1m1 0h1m3 0h2m-30 1h7m1 0h2m4 0h1m2 0h3m2 0h3m1 0h1m1 0h1m2 0h1m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h2m1 0h3m2 0h1m1 0h2m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m3 0h3m1 0h2m1 0h6m1 0h1m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m2 0h1m4 0h2m5 0h1m3 0h1m4 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m4 0h5m2 0h3m1 0h1m1 0h2m1 0h2m-31 1h1m5 0h1m2 0h3m5 0h1m1 0h2m1 0h3m1 0h3m3 0h1m-33 1h7m1 0h1m1 0h1m1 0h3m1 0h8m4 0h1m1 0h1"/></svg>
+
+  <div><b>휴대폰 카메라로 찍어 보세요</b><p>이 안내 페이지가 열립니다. 실습이 끝난 뒤에도 다시 열 수 있습니다.</p><span class="url">raylove0504-lgtm.github.io/ai-practice/03.html</span></div>
+</div>
+<header>
+  <span class="eyebrow">경력지원서비스 · 실습 03</span>
+  <h1>AI로 채용공고 읽고 따져 보기</h1>
+  <p class="lead">AI와 함께 채용공고를 꼼꼼히 읽고, 지원하기 전에 확인할 것과 물어볼 것을 정리해 갑니다.</p>
+  <div class="outcome" aria-label="오늘 만들 결과물"><span class="part">공고 요약 3줄</span><span class="plus">+</span><span class="part">7가지 확인표</span><span class="plus">+</span><span class="part">물어볼 질문 3개</span></div>
+  <dl class="facts">
+    <div><dt>결과물</dt><dd>공고 확인표 1장 (휴대폰 메모장에 저장)</dd></div>
+    <div><dt>준비물</dt><dd>휴대폰 AI 앱 1개(ChatGPT·Gemini·Copilot 등), 관심 있는 채용공고 1개 또는 샘플 채용공고</dd></div>
+  </dl>
+</header>
+<nav class="jump" aria-label="바로가기">
+  <a href="#ready">준비</a><a href="#example">예시</a><a href="#flow">순서</a><a href="#rules">안전 수칙</a><a href="#prompts">프롬프트</a><a href="#stuck">막힐 때</a><a href="#check">점검</a><a href="#save">저장·활용</a><a href="#faq">질문</a>
+</nav>
+<section id="ready">
+  <h2>시작 전 준비</h2>
+  <p class="muted">하나씩 눌러 확인해 보세요. 어려운 부분은 짝이나 강사에게 도움을 청하셔도 됩니다.</p>
+  <ul class="checks"><li><label for="r1"><input type="checkbox" id="r1"><span>AI 앱 설치와 로그인<small>앱이 없으면 짝의 화면을 함께 쓰셔도 됩니다</small></span></label></li><li><label for="r2"><input type="checkbox" id="r2"><span>교육장 와이파이 연결</span></label></li><li><label for="r3"><input type="checkbox" id="r3"><span>메모장 앱 찾아 두기<small>결과물을 저장할 곳입니다</small></span></label></li><li><label for="r4"><input type="checkbox" id="r4"><span>채용공고 1개 준비하기<small>고용24 등에서 찾은 공고나 샘플 공고를 씁니다</small></span></label></li><li><label for="r5"><input type="checkbox" id="r5"><span>내가 원하는 근무 조건 떠올려 두기<small>하루 몇 시간, 어디까지 다닐 수 있는지 정도면 됩니다</small></span></label></li></ul>
+</section>
+<section id="example">
+  <h2>오늘 만들 확인표 예시</h2>
+  <p>아래는 <b>가상 인물</b>(공공기관 사무직 · 일반행정 25년)이 <b>가상 공고</b>를 확인한 예시입니다.</p><div class="form" role="group" aria-label="가상 채용공고"><div class="tag"><span>가상 채용공고</span><span>예시</span></div><div class="row"><div class="k">회사·직무</div><div class="v">○○관리(주) · 아파트 관리사무소 행정보조</div></div><div class="row"><div class="k">하는 일</div><div class="v">관리비 고지서 정리, 민원 전화 응대, 기타 업무 일체</div></div><div class="row"><div class="k">근무</div><div class="v">주 5일, 09:00~16:00</div></div><div class="row"><div class="k">임금</div><div class="v">시급 10,500원</div></div><div class="row"><div class="k">고용형태</div><div class="v">계약직 (기간 협의)</div></div><div class="row"><div class="k">접수</div><div class="v">이메일 접수, 이력서·자기소개서</div></div></div><div class="form" role="group" aria-label="AI가 정리한 확인표"><div class="tag"><span>AI가 정리한 확인표</span><span>예시 · 가상 인물</span></div><div class="row"><div class="k">① 직무 내용</div><div class="v">고지서 정리·민원 응대<span class="plan">물어볼 것: '기타 업무 일체'에 무엇이 들어가는지</span></div></div><div class="row"><div class="k">② 고용형태</div><div class="v">계약직<span class="plan">물어볼 것: 계약 기간과 재계약 여부</span></div></div><div class="row"><div class="k">③ 근무시간·휴게</div><div class="v">09:00~16:00<span class="plan">물어볼 것: 점심시간(휴게시간)이 포함인지</span> <span class="chk">[공고에 없음]</span></div></div><div class="row"><div class="k">④ 임금</div><div class="v">시급 10,500원<span class="plan">2026년 최저임금(10,320원)보다 높음</span> <span class="chk">[계산 확인 필요]</span></div></div><div class="row"><div class="k">⑤ 4대보험</div><div class="v"><span class="chk">[공고에 없음]</span><span class="plan">물어볼 것: 4대보험 가입 여부</span></div></div><div class="row"><div class="k">⑥ 근무지·출퇴근</div><div class="v"><span class="chk">[공고에 없음]</span><span class="plan">물어볼 것: 근무할 아파트 위치</span></div></div><div class="row"><div class="k">⑦ 접수 방법·서류</div><div class="v">이메일, 이력서·자기소개서<span class="plan">마감일</span> <span class="chk">[공고에 없음]</span></div></div><div class="row"><div class="k">물어볼 질문</div><div class="v"><ol class="qlist"><li>계약 기간은 몇 개월이고, 재계약이 가능한가요?</li><li>4대보험에 가입되나요?</li><li>'기타 업무'에는 어떤 일이 들어가나요?</li></ol></div></div></div><p class="muted"><mark>[공고에 없음]</mark>은 공고에 적혀 있지 않아 AI가 지어내지 않고 비워 둔 표시입니다. 이런 칸이 바로 지원 전에 물어볼 것입니다.</p>
+</section>
+<section id="secret">
+  <h2>공고를 읽는 7가지 기준</h2>
+  <div class="formula"><b>하는 일</b><i>→</i><b>고용형태</b><i>→</i><b>시간</b><i>→</i><b>임금</b><i>→</i><b>4대보험</b><i>→</i><b>근무지</b><i>→</i><b>접수 방법</b></div>
+  <p>7가지 가운데 2개 이상이 불분명하면, 지원하기 전에 먼저 전화로 물어보세요.</p>
+  <p>이런 표현이 있으면 다시 확인합니다.</p><ul class="warn"><li><b>'기타 업무 일체'</b> → 실제로 맡는 일이 무엇인지</li><li><b>'위촉직·프리랜서', '3.3% 공제'</b> → 근로자로 고용되는 것인지</li><li><b>'고수익 보장'</b> → 일하는 방식과 임금 기준이 무엇인지</li><li><b>근무시간이 '협의'로만 적힘</b> → 하루·일주일 근무시간이 얼마인지</li><li><b>개인 휴대전화나 메신저 아이디만 적힌 접수처</b> → 회사 정보가 확실한지</li></ul>
+  <p class="tip">지원하기 전에 돈·통장·신분증을 요구하는 곳에는 <b>지원하지 않습니다.</b></p>
+</section>
+<section id="flow">
+  <h2>실습 순서</h2>
+  <ol class="timeline"><li><span class="t">1단계</span><span class="d">오늘 만들 결과물과 안전 수칙을 확인합니다</span></li><li><span class="t">2단계</span><span class="d">AI 앱을 열고 시작 프롬프트를 붙여 넣습니다<span class="p">①</span><span class="o">대화 시작</span></span></li><li><span class="t">3단계</span><span class="d">채용공고를 붙여 넣고 쉬운 말로 요약합니다<span class="p">②</span><span class="o">공고 요약</span></span></li><li><span class="t">4단계</span><span class="d">7가지 기준으로 확인표를 만듭니다<span class="p">③</span><span class="o">확인표</span></span></li><li><span class="t">5단계</span><span class="d">내 조건과 맞춰 보고 물어볼 질문을 만듭니다<span class="p">④</span><span class="o">질문 3개</span></span></li><li><span class="t">6단계</span><span class="d">체크리스트로 짝과 서로 확인하고 고칩니다<span class="o">수정본</span></span></li><li><span class="t">7단계</span><span class="d">메모장에 저장합니다<span class="o">최종 저장</span></span></li></ol>
+</section>
+<section id="rules" class="rules">
+  <h2>안전 수칙 3가지</h2>
+  <p>실습하는 동안 꼭 지켜 주세요.</p>
+  <ol><li><b>내 개인정보는 넣지 않습니다.</b> 이름·주민번호·연락처·주소는 쓰지 않습니다. 공고만 붙여 넣고, 내 조건은 "집에서 30분 거리"처럼 적습니다.</li><li><b>"지어내지 말아 주세요"를 꼭 붙입니다.</b> 공고에 없는 내용은 AI가 [공고에 없음]으로 표시하도록 요청합니다.</li><li><b>AI의 판단은 참고만 합니다.</b> 임금 계산과 근로조건은 직접 다시 확인하고, 회사에 물어봅니다. 지원 전에 돈·통장·신분증을 요구하는 곳에는 지원하지 않습니다.</li></ol>
+</section>
+<section id="prompts">
+  <h2>실습 프롬프트</h2>
+  <p><b>복사</b> 버튼을 누른 뒤 AI 앱 입력창에 붙여 넣으세요. <mark>노란색</mark> 부분만 내 내용으로 바꾸면 됩니다.</p>
+  <article class="step" id="p1">
+    <div class="step-head"><span class="num">①</span><h3>시작하기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ①</span><button class="copy" type="button" data-target="t1">복사</button></div>
+<pre id="t1">저는 재취업을 준비하는 중장년 구직자입니다.
+채용공고를 함께 꼼꼼히 읽고, 지원하기 전에 확인할 것을 정리하고 싶습니다.
+제가 공고를 보내 드리겠습니다.
+지금은 글을 쓰지 말고, 받을 준비가 됐는지만 알려 주세요.
+쉽고 짧은 말로 대화해 주세요.</pre></div>
+    <p class="note"><b>이렇게 이어집니다</b> — AI가 "공고를 보내 주세요"처럼 답하면 잘된 것입니다. AI가 바로 긴 글을 쓰기 시작하면 "아직 쓰지 말고 기다려 주세요"라고 입력하세요.</p>
+  </article>
+  <article class="step" id="p2">
+    <div class="step-head"><span class="num">②</span><h3>공고 붙여 넣고 요약하기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ②</span><button class="copy" type="button" data-target="t2">복사</button></div>
+<pre id="t2">아래 채용공고를 쉬운 말로 3줄로 요약해 주세요.
+1줄: 어떤 일을 하는지
+2줄: 언제, 얼마를 받고 일하는지
+3줄: 어떻게 지원하는지
+- 공고에 적힌 내용만 쓰고, 지어내지 말아 주세요.
+- 공고에 없는 내용은 [공고에 없음]이라고 표시해 주세요.
+- 어려운 말이 있으면 쉬운 말로 풀어 주세요.
+<mark>【여기에 채용공고를 붙여 넣기】</mark></pre></div>
+    <p class="note"><b>이렇게 하세요</b> — 공고 화면을 길게 눌러 글을 복사한 뒤, 노란 부분을 지우고 붙여 넣습니다. 복사가 어려우면 공고 화면을 캡처해 사진으로 올려도 됩니다.</p>
+  </article>
+  <article class="step" id="p3">
+    <div class="step-head"><span class="num">③</span><h3>7가지 확인표 만들기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ③</span><button class="copy" type="button" data-target="t3">복사</button></div>
+<pre id="t3">방금 공고를 아래 7가지 기준으로 정리해 주세요.
+① 직무 내용 ② 고용형태 ③ 근무시간·휴게 ④ 임금 ⑤ 4대보험 ⑥ 근무지·출퇴근 ⑦ 접수 방법·서류
+- 항목마다 '공고에 적힌 내용'과 '다시 확인할 것'을 한 줄씩 적어 주세요.
+- 임금은 시급으로 바꿔 계산 과정을 보여 주고, 2026년 최저임금 시급 10,320원보다 높은지 알려 주세요.
+- '기타 업무 일체', '위촉직', '3.3% 공제', '고수익 보장', '협의' 같은 표현이 있으면 따로 알려 주세요.
+- 공고에 없는 내용은 지어내지 말고 [공고에 없음]이라고 표시해 주세요.
+- 표는 쓰지 말고 짧은 목록으로 써 주세요.</pre></div>
+    <div class="note"><b>결과가 나오면 이렇게 확인하세요</b><ul style="margin:6px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px"><li>시간·임금 숫자가 공고 원문과 같은지 한 번 더 봅니다.</li><li>시급 계산은 휴대폰 계산기로 직접 다시 해 봅니다.</li><li>[공고에 없음]이 나오면 잘된 것입니다. 그 칸이 바로 물어볼 것입니다.</li></ul></div>
+  </article>
+  <article class="step" id="p4">
+    <div class="step-head"><span class="num">④</span><h3>내 조건과 맞춰 보고 질문 만들기</h3></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ④</span><button class="copy" type="button" data-target="t4">복사</button></div>
+<pre id="t4">제가 원하는 근무 조건은 아래와 같습니다.
+<mark>【예) 하루 6시간 이내, 주 5일 이하, 집에서 대중교통 30분 거리, 4대보험 가입】</mark>
+위 공고와 제 조건을 비교해서 아래를 정리해 주세요.
+1) 맞는 점
+2) 맞지 않거나 알 수 없는 점
+3) 지원 전에 회사에 전화로 물어볼 질문 3개 (정중한 존댓말로)
+- 공고와 제가 말한 조건만 보고, 지어내지 말아 주세요.
+- 확실하지 않은 부분은 [확인 필요]라고 표시해 주세요.</pre></div>
+    <h3>대화 예시 <span class="muted" style="font-weight:500;font-size:.9rem">가상 인물</span></h3><div class="chat"><p class="bubble ai"><small>AI</small>하루 6시간 이내 조건은 09:00~16:00 근무라 점심시간이 빠지면 맞습니다. 점심시간 포함 여부는 [확인 필요]입니다.</p><p class="bubble me"><small>나</small>점심시간도 질문에 넣어 주세요.</p><p class="bubble ai"><small>AI</small>네. 질문 1: "근무시간 09시부터 16시에 점심시간 1시간이 포함되어 있나요?"를 넣었습니다.</p></div>
+  </article>
+  <article class="step optional" id="p5">
+    <div class="step-head"><span class="num">⑤</span><h3>더 해 보기 — 전화 문의 연습</h3><span class="time">선택 · 시간이 남으면</span></div>
+    <div class="prompt"><div class="bar"><span>프롬프트 ⑤</span><button class="copy" type="button" data-target="t5">복사</button></div>
+<pre id="t5">위 질문 3개로 회사에 전화할 때 쓸 짧은 대본을 만들어 주세요.
+- 인사와 공고 이름 → 질문 3개 → 감사 인사 순서로, 30초 안에 말할 수 있게 써 주세요.
+- 제 이름이 들어갈 자리는 <mark>【이름】</mark>으로 비워 두세요.
+- 지어내지 말고, 확실하지 않은 부분은 [확인 필요]라고 표시해 주세요.</pre></div>
+    
+  </article>
+</section>
+<section id="stuck">
+  <h2>막힐 때 쓰는 짧은 말</h2>
+  <p class="muted">AI의 답이 마음에 들지 않을 때, 아래 한 줄을 복사해 입력하면 됩니다.</p>
+  <ul class="phrases"><li><span class="when">모르는 낱말이 있을 때</span><q id="s1">'○○'이 무슨 뜻인지 쉽게 알려 주세요.</q><button class="copy" type="button" data-target="s1">복사</button></li><li><span class="when">말이 어렵거나 길 때</span><q id="s2">더 쉬운 말로, 더 짧게 써 주세요.</q><button class="copy" type="button" data-target="s2">복사</button></li><li><span class="when">임금 계산이 이상할 때</span><q id="s3">임금 계산 과정을 한 줄씩 다시 보여 주세요.</q><button class="copy" type="button" data-target="s3">복사</button></li><li><span class="when">공고에 없는 내용이 들어갔을 때</span><q id="s4">○○은 공고에 없습니다. 빼고 다시 써 주세요.</q><button class="copy" type="button" data-target="s4">복사</button></li><li><span class="when">표가 휴대폰에서 깨져 보일 때</span><q id="s5">표 말고 짧은 목록으로 다시 써 주세요.</q><button class="copy" type="button" data-target="s5">복사</button></li><li><span class="when">질문이 딱딱할 때</span><q id="s6">전화로 묻기 좋게 더 부드러운 존댓말로 바꿔 주세요.</q><button class="copy" type="button" data-target="s6">복사</button></li><li><span class="when">질문을 한꺼번에 여러 개 할 때</span><q id="s7">하나씩 물어봐 주세요.</q><button class="copy" type="button" data-target="s7">복사</button></li></ul>
+  <p class="tip">다른 공고를 보고 싶을 때는 앱에서 '새 대화'를 누르고 프롬프트 ①부터 다시 붙여 넣으세요.</p>
+</section>
+<section id="check">
+  <h2>사실 확인 체크리스트</h2>
+  <p class="muted">완성한 확인표를 짝과 함께 아래 네 가지로 확인합니다.</p>
+  <ul class="checks"><li><label for="c1"><input type="checkbox" id="c1"><span>요약의 시간·임금·마감일이 공고 원문과 같나요?</span></label></li><li><label for="c2"><input type="checkbox" id="c2"><span>시급 계산을 계산기로 직접 다시 해 봤나요?</span></label></li><li><label for="c3"><input type="checkbox" id="c3"><span>[공고에 없음] 칸을 모두 '물어볼 질문'으로 바꿨나요?</span></label></li><li><label for="c4"><input type="checkbox" id="c4"><span>다시 확인할 표현('기타 업무 일체', '위촉직', '3.3% 공제' 등)이 있는지 내 눈으로 찾아봤나요?</span></label></li></ul>
+</section>
+<section id="save">
+  <h2>저장하는 방법</h2>
+  <p class="muted">AI 앱의 대화는 나중에 찾기 어려울 수 있으니, 편한 방법으로 꼭 저장해 두세요.</p>
+  <div class="cols"><div class="card"><h3>메모장에 붙여 넣기</h3><p>AI의 답을 길게 눌러 '복사'한 뒤 메모장에 붙여 넣고 "공고 확인 — 회사 이름"으로 저장합니다.</p></div><div class="card"><h3>나에게 보내기</h3><p>카카오톡 '나와의 채팅' 같은 곳에 붙여 넣어 두면 컴퓨터에서도 쉽게 꺼내 씁니다.</p></div><div class="card"><h3>화면 캡처</h3><p>복사가 어려울 때 씁니다. 다만 글자를 고치려면 나중에 다시 입력해야 합니다.</p></div></div>
+  <h2 style="margin-top:14px">실습 후 이렇게 활용하세요</h2>
+  <div class="cols"><div class="card"><h3>전화 문의</h3><p>물어볼 질문 3개를 보며 회사에 전화합니다. 들은 답은 확인표 옆에 바로 적어 둡니다.</p></div><div class="card"><h3>구직활동 관리</h3><p>지원한 날짜, 회사, 진행 상황을 활동지의 구직활동 관리표나 메모장에 한 줄씩 적어 둡니다.</p></div><div class="card"><h3>자기소개서</h3><p>확인표의 '직무 내용'과 공고의 낱말은 다음 실습 '자기소개서 한 문항 쓰기'의 재료가 됩니다.</p></div><div class="card"><h3>사후 상담</h3><p>확인표와 공고를 가져오시면 상담사와 함께 지원 여부와 지원 서류를 함께 살펴봅니다.</p></div></div>
+  <p class="homework"><b>집에서 할 일</b> — 관심 있는 공고를 1~2개 더 찾아 같은 방법으로 확인표를 만들어 보세요. 근로조건이 걱정되면 고용노동부 고객상담센터(☎ 1350)에 물어볼 수 있습니다.</p>
+</section>
+<section id="faq">
+  <h2>자주 묻는 질문</h2>
+  <dl class="faq"><div><dt>공고 글이 복사되지 않아요.</dt><dd>공고 화면을 캡처해 사진으로 올리셔도 됩니다. 다만 AI가 글자를 잘못 읽을 수 있으니, 숫자는 공고 원문과 꼭 비교해 주세요.</dd></div><div><dt>AI가 "좋은 공고"라고 하면 믿어도 되나요?</dt><dd>참고만 하세요. AI는 공고에 적힌 글만 보고 판단합니다. 실제 근로조건은 회사에 직접 확인하고, 근로계약서를 꼭 쓰고 받아 두세요.</dd></div><div><dt>공고에 월급만 적혀 있어요.</dt><dd>③ 프롬프트가 시급으로 바꿔 계산해 줍니다. 계산 방법이 맞는지 헷갈리면 [확인 필요]로 두고, 상담 때나 회사에 물어볼 때 함께 확인합니다.</dd></div></dl>
+</section>
+<footer>
+  <span class="eyebrow">기억해 주세요</span>
+  <blockquote>AI는 공고를 함께 읽는 도우미이고, <em>지원할지 정하는 사람은 나</em>입니다.</blockquote>
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var el = document.getElementById(btn.dataset.target);
+    if(!el) return;
+    var text = el.textContent.trim();
+    var done = function(){
+      var old = '복사';
+      btn.textContent = '복사됨';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('done'); }, 1800);
+    };
+    var fallback = function(){
+      try{
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = '길게 눌러 복사';
+        setTimeout(function(){ btn.textContent = '복사'; }, 2500);
+      }catch(e){}
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    }catch(e){ fallback(); }
+  });
+});
+</script>
+
+</body></html>
