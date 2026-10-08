@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI 트렌드·용어집 2026</title>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a reference handbook — one reading column with a sticky index, card grid for trends, a filterable dictionary for terms */
+:root{
+  --bg:#F4F5F7; --surface:#FFFFFF; --ink:#18202B; --muted:#5A6573; --line:#D8DDE4;
+  --accent:#2C4A8A; --accent-soft:#E6ECF7; --accent-ink:#FFFFFF;
+  --mark:#FFE27A; --mark-ink:#18202B;
+  --warn:#8A4B12; --warn-soft:#FBF0E2;
+  --f-display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161D; --surface:#19202A; --ink:#E7EBF0; --muted:#9CA7B5; --line:#2C3542;
+  --accent:#8EA9E6; --accent-soft:#1E2A40; --accent-ink:#11161D;
+  --mark:#5C4C10; --mark-ink:#FFF1BF;
+  --warn:#F0B37A; --warn-soft:#2E2216;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161D; --surface:#19202A; --ink:#E7EBF0; --muted:#9CA7B5; --line:#2C3542;
+  --accent:#8EA9E6; --accent-soft:#1E2A40; --accent-ink:#11161D;
+  --mark:#5C4C10; --mark-ink:#FFF1BF;
+  --warn:#F0B37A; --warn-soft:#2E2216;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:900px;margin:0 auto;padding-inline:18px;padding-block:32px 72px;display:flex;flex-direction:column;gap:52px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;margin:0;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,2.9rem);font-weight:700;letter-spacing:-.015em}
+h1 .yr{font-family:var(--f-mono);font-weight:500;color:var(--accent);font-size:.62em;vertical-align:.35em;margin-left:.2em}
+h2{font-size:1.5rem;font-weight:700;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.muted{color:var(--muted)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:70px}
+.sub{color:var(--muted);max-width:68ch}
+.note{font-size:.93rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:72ch}
+.tip{background:var(--accent-soft);border-radius:var(--r);padding:12px 16px;font-size:.96rem}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 .12em;border-radius:3px}
+
+/* header */
+.top{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-family:var(--f-display);font-size:.8rem;font-weight:600;letter-spacing:.09em;color:var(--accent)}
+.asof{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.9rem}
+.stamp{font-family:var(--f-mono);font-size:.82rem;border:1.5px solid var(--ink);border-radius:4px;padding:2px 8px;letter-spacing:.02em}
+.lead{font-size:1.1rem;max-width:62ch}
+
+/* nav */
+.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin-inline:-18px;padding:10px 18px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* glance */
+.glance{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.glance li{padding:14px 0;border-bottom:1px solid var(--line);max-width:74ch}
+.glance b{font-family:var(--f-display);font-weight:600}
+
+/* trends */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.trend.big{grid-column:1/-1;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.trend.big dt{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.trend dl{margin:0;display:flex;flex-direction:column;gap:4px}
+.trend dt{font-size:.76rem;font-weight:700;letter-spacing:.07em;color:var(--muted);margin-top:4px}
+.trend dd{margin:0;font-size:.95rem}
+.trend.big dl{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.trend.big dt:nth-of-type(1){grid-column:1;grid-row:1}.trend.big dd:nth-of-type(1){grid-column:1;grid-row:2}
+.trend.big dt:nth-of-type(2){grid-column:2;grid-row:1}.trend.big dd:nth-of-type(2){grid-column:2;grid-row:2}
+@media (max-width:600px){.trend.big dl{display:flex}}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0 0 0 4px;display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.tl li{position:relative;padding:0 0 20px 22px;display:grid;grid-template-columns:11em minmax(0,1fr);gap:2px 16px}
+.tl li::before{content:"";position:absolute;left:-9px;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--accent)}
+.tl li:last-child::before{background:var(--accent)}
+.tl .when{font-family:var(--f-display);font-weight:700;grid-row:1/3}
+.tl .who{font-family:var(--f-mono);font-size:.82rem;color:var(--accent)}
+.tl .what{font-size:.96rem}
+@media (max-width:560px){.tl li{grid-template-columns:1fr}.tl .when{grid-row:auto}}
+
+/* tables */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.cmp{border-collapse:collapse;width:100%;min-width:560px;font-size:.94rem}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+.cmp thead th{font-family:var(--f-display);font-size:.82rem;letter-spacing:.05em;color:var(--muted);background:var(--accent-soft)}
+.cmp tbody th{font-family:var(--f-display);font-weight:600;white-space:nowrap}
+.cmp tbody tr:last-child>*{border-bottom:0}
+.cmp tr.hl>*{background:var(--warn-soft)}
+.cmp tr.hl th{color:var(--warn)}
+
+/* glossary */
+.count{font-family:var(--f-mono);font-size:.85rem;font-weight:500;color:var(--muted)}
+.filters{display:flex;flex-direction:column;gap:10px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 52px);z-index:4;background:var(--bg);padding-block:8px}
+.search input{width:100%;font:inherit;font-size:1rem;padding:10px 14px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink)}
+.search input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:.86rem;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip span{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin-left:2px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"] span{color:inherit;opacity:.7}
+.group{display:flex;flex-direction:column;gap:8px}
+.gh{font-size:.85rem;letter-spacing:.08em;color:var(--accent);padding-top:8px}
+.gloss{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.term dt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.term .ko{font-family:var(--f-display);font-weight:700;font-size:1.05rem}
+.term .en{font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+.term dd{margin:0}
+.term .mean{font-size:.95rem}
+.term .ex{font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px}
+#term-meta{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.empty{color:var(--muted);padding:20px 0}
+
+/* meta-prompt */
+.layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.layers>div{padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--line);min-width:0}
+.layers>div:last-child{border-right:0}
+.layers b{font-family:var(--f-display)}
+.layers span{font-size:.82rem;color:var(--muted)}
+.layers q{font-size:.92rem;quotes:"\201C" "\201D"}
+.layers .on{background:var(--accent-soft)}
+.layers .on b{color:var(--accent)}
+@media (max-width:620px){.layers{grid-template-columns:1fr}.layers>div{border-right:0;border-bottom:1px solid var(--line)}.layers>div:last-child{border-bottom:0}}
+.mp{display:flex;flex-direction:column;gap:8px}
+.mph{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.mph .muted{font-size:.88rem}
+.code{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.code .bar{display:flex;justify-content:space-between;align-items:center;padding:6px 8px 6px 14px;border-bottom:1px solid var(--line)}
+.code .bar span{font-size:.78rem;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+.code pre{margin:0;padding:14px 16px;white-space:pre-wrap;font-family:var(--f-body);font-size:.95rem;line-height:1.75;background:var(--bg)}
+button.copy{font:inherit;font-size:.86rem;font-weight:700;border:0;border-radius:8px;padding:7px 14px;background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:36px}
+button.copy.done{background:var(--ink);color:var(--bg)}
+
+/* teach */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.two>div{display:flex;flex-direction:column;gap:10px;min-width:0}
+.steps,.cautions{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px;font-size:.96rem}
+.cautions li::marker{color:var(--warn)}
+
+.rules3{margin:0;padding:16px 18px 16px 2.4em;display:flex;flex-direction:column;gap:10px;background:var(--warn-soft);border:1px solid var(--warn);border-radius:var(--r);font-size:.97rem}
+.rules3 b{color:var(--warn)}
+/* sources */
+.src{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+@media (max-width:560px){
+  .cmp.easy{min-width:0}
+  .cmp.easy thead{display:none}
+  .cmp.easy tr{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .cmp.easy tbody tr:last-child{border-bottom:0}
+  .cmp.easy th,.cmp.easy td{padding:0;border:0;white-space:normal}
+  .cmp.easy td:last-child{color:var(--muted);font-size:.9rem}
+}
+.qr{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}.qr svg{width:120px;height:120px;flex:0 0 auto;background:#fff;border-radius:6px;padding:4px}.qr b{display:block;font-family:var(--f-display);font-size:1.02rem}.qr p{font-size:.9rem;color:var(--muted)}.qr .url{font-size:.78rem;word-break:break-all;color:var(--muted)}
+</style>
+<div class="wrap">
+<div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" role="img" aria-label="이 페이지로 들어오는 QR코드" shape-rendering="crispEdges" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#18202b" d="M2 2.5h7m4 0h4m1 0h1m1 0h6m2 0h7m-33 1h1m5 0h1m2 0h4m1 0h2m10 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m3 0h1m4 0h4m2 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h4m5 0h1m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h1m3 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h2m4 0h4m4 0h1m3 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h2m2 0h1m1 0h3m2 0h1m1 0h1m2 0h1m-25 1h1m1 0h5m3 0h5m2 0h1m4 0h3m1 0h5m-31 1h1m3 0h2m1 0h2m1 0h2m4 0h2m1 0h3m1 0h1m2 0h2m1 0h2m1 0h1m-31 1h3m1 0h2m3 0h1m3 0h1m1 0h1m2 0h3m1 0h1m3 0h1m1 0h2m-32 1h1m3 0h1m7 0h1m2 0h2m1 0h1m1 0h3m5 0h4m-31 1h3m1 0h2m2 0h1m1 0h2m2 0h1m1 0h1m1 0h2m2 0h3m2 0h2m2 0h1m-33 1h1m1 0h4m4 0h4m2 0h1m1 0h4m1 0h1m1 0h2m2 0h1m1 0h2m-33 1h1m1 0h1m3 0h2m1 0h1m4 0h2m5 0h2m1 0h3m2 0h1m1 0h1m-32 1h2m1 0h1m1 0h1m1 0h3m2 0h5m1 0h1m1 0h3m2 0h2m1 0h1m1 0h1m-31 1h1m1 0h1m1 0h1m1 0h1m1 0h3m3 0h4m6 0h2m1 0h2m3 0h1m-29 1h2m3 0h1m1 0h3m2 0h1m1 0h2m2 0h2m1 0h3m1 0h2m1 0h1m-32 1h1m1 0h1m2 0h3m3 0h1m1 0h3m5 0h1m4 0h2m1 0h2m-32 1h2m1 0h1m1 0h1m1 0h2m2 0h2m2 0h1m2 0h1m1 0h3m1 0h1m1 0h5m1 0h1m-32 1h2m1 0h1m1 0h2m2 0h2m1 0h2m1 0h2m2 0h1m1 0h2m1 0h1m1 0h3m1 0h2m-33 1h3m2 0h1m2 0h1m2 0h2m1 0h1m1 0h2m1 0h3m1 0h1m2 0h2m1 0h1m2 0h1m-33 1h1m1 0h5m3 0h6m4 0h2m7 0h1m1 0h1m-32 1h1m1 0h2m3 0h4m2 0h1m1 0h1m4 0h2m1 0h2m1 0h6m-32 1h1m3 0h3m2 0h1m1 0h1m5 0h4m3 0h5m2 0h2m-25 1h2m1 0h2m3 0h1m1 0h2m1 0h4m3 0h1m1 0h1m1 0h1m-33 1h7m5 0h7m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m-31 1h1m5 0h1m1 0h2m3 0h1m2 0h1m4 0h4m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m5 0h1m1 0h2m3 0h1m1 0h6m-30 1h1m1 0h3m1 0h1m1 0h1m2 0h2m3 0h4m1 0h1m1 0h3m2 0h1m1 0h3m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h4m1 0h1m2 0h3m1 0h1m1 0h2m1 0h2m-31 1h1m5 0h1m2 0h2m2 0h1m2 0h1m1 0h1m2 0h2m5 0h3m-31 1h7m1 0h3m1 0h1m1 0h1m2 0h1m1 0h2m2 0h3m1 0h1m3 0h1"/></svg>
+<div><b>휴대폰 카메라로 찍어 보세요</b><p>이 페이지가 열립니다. 나중에 다시 보고 싶을 때도 이 QR을 찍으면 됩니다.</p><span class="url">raylove0504-lgtm.github.io/ai-practice/ai-trends.html</span></div></div>
+<header class="top">
+  <p class="eyebrow">경력지원서비스 · AI 함께 알기</p>
+  <h1>AI 트렌드·용어집 <span class="yr">2026</span></h1>
+  <p class="asof"><span class="stamp">2026년 10~11월 기준</span><span class="muted">AI 앱 이름과 규칙은 빠르게 바뀝니다. 중요한 내용은 아래 출처에서 다시 확인해 주세요.</span></p>
+  <p class="lead">2026년 하반기 AI의 중심은 '대답하는 AI'에서 '일을 맡아 끝내는 AI(에이전트)'로 옮겨 왔고, 9월에 주요 회사의 새 세대 모델이 한꺼번에 나왔습니다. 최신 흐름과 자주 쓰이는 용어를 쉬운 말로 정리했습니다.</p>
+</header>
+<nav class="jump" aria-label="바로가기"><a href="#glance">한눈에</a><a href="#trends">트렌드 9</a><a href="#timeline">모델 출시</a><a href="#law">규제</a><a href="#terms">용어집</a><a href="#meta">메타프롬프트</a><a href="#keep">기억할 것</a><a href="#src">출처</a></nav>
+<section id="glance"><h2>한눈에 보기</h2><ul class="glance"><li><b>에이전트가 주인공입니다.</b> AI가 질문에 답하는 데서 그치지 않고, 목표를 받아 여러 단계를 스스로 처리합니다. 사람의 역할은 '직접 하기'에서 '맡기고 승인·검증하기'로 바뀌고 있습니다.</li><li><b>가을에 새 세대 모델이 몰렸습니다.</b> OpenAI·Anthropic·Google이 9월 전후로 새 세대를 내놓았습니다. 100만 토큰 안팎의 긴 입력과 컴퓨터 조작이 기본 기능이 되었습니다.</li><li><b>'연결 표준'이 정리되고 있습니다.</b> AI와 도구를 잇는 MCP, AI끼리 대화하는 A2A가 모두 리눅스재단 산하 '에이전틱 AI 재단'에서 함께 관리됩니다.</li><li><b>말 한 줄보다 '맥락 설계'가 중요해졌습니다.</b> 프롬프트 엔지니어링에서 컨텍스트 엔지니어링으로 관심이 옮겨 갔고, AI에게 프롬프트를 쓰게 하는 메타프롬프트가 일상적인 기법이 되었습니다.</li><li><b>규칙이 생기고 있습니다.</b> 한국 AI 기본법이 2026년 1월 22일 시행되어 계도기간 중이고, 채용 판단에 쓰는 AI는 '고영향 AI' 영역에 들어갑니다. EU는 고위험 AI 의무를 2027년 12월로 미뤘습니다.</li></ul></section>
+<section id="trends"><h2>주요 트렌드 9가지</h2><p class="sub">가장 큰 흐름은 에이전틱 AI이고, 나머지는 그것을 받치는 기술·표준·규칙입니다.</p><div class="tgrid"><article class="trend big"><h3>에이전틱 AI</h3><dl><dt>무엇이 바뀌었나</dt><dd>목표를 주면 예약·발주·오류 수정까지 스스로 처리합니다. 외부 업무 앱 연결, 가족 일정을 맡는 그룹 에이전트까지 시험 중입니다.</dd><dt>나에게 주는 의미</dt><dd>AI에게 일을 맡기는 경우가 늘어납니다. 무엇을 맡기고 무엇을 내가 확인할지 정하는 힘이 중요해집니다.</dd></dl></article><article class="trend"><h3>모델 세대교체</h3><dl><dt>무엇이 바뀌었나</dt><dd>9월 전후 GPT-6·Claude 5.5·Gemini 4/3.8 계열이 나왔습니다. 같은 계열을 비싼·중간·저렴한 등급으로 나눠 내는 것이 표준입니다.</dd><dt>나에게 주는 의미</dt><dd>앱 이름과 기능은 자주 바뀝니다. 이름을 외우기보다 무료 기능으로 내 일을 직접 해 보는 것이 먼저입니다.</dd></dl></article><article class="trend"><h3>긴 맥락·값 하락</h3><dl><dt>무엇이 바뀌었나</dt><dd>한 번에 100만 토큰 안팎을 처리합니다. GPT-4급 성능의 가격은 2023년 100만 토큰당 약 30달러에서 1달러 아래로 내려왔습니다.</dd><dt>나에게 주는 의미</dt><dd>긴 문서도 넣고 물어볼 수 있습니다. 다만 개인정보가 담긴 문서는 통째로 넣지 않습니다.</dd></dl></article><article class="trend"><h3>연결 표준 (MCP·A2A)</h3><dl><dt>무엇이 바뀌었나</dt><dd>MCP·A2A·AGENTS.md를 리눅스재단 에이전틱 AI 재단(AAIF)이 관리합니다. 2026년 8월 회원사가 250곳을 넘었습니다.</dd><dt>나에게 주는 의미</dt><dd>일터에서 메일·일정·문서를 AI와 함께 다루는 일이 흔해집니다.</dd></dl></article><article class="trend"><h3>음성·멀티모달 일상화</h3><dl><dt>무엇이 바뀌었나</dt><dd>말로 대화하는 음성 모델과 목소리·음악·영상 생성이 기본 앱에 들어갔습니다.</dd><dt>나에게 주는 의미</dt><dd>타자가 불편하면 말로 입력하면 됩니다. 면접·발표 연습에도 쓸 수 있습니다.</dd></dl></article><article class="trend"><h3>보안과 AI의 양날</h3><dl><dt>무엇이 바뀌었나</dt><dd>최상위 모델은 해킹 방어 능력이 커서 검증된 기관에만 먼저 공개하는 흐름입니다.</dd><dt>나에게 주는 의미</dt><dd>AI를 이용한 피싱·보이스피싱이 더 정교해집니다. 채용을 미끼로 돈이나 신분증을 요구하면 의심합니다.</dd></dl></article><article class="trend"><h3>피지컬 AI·온디바이스</h3><dl><dt>무엇이 바뀌었나</dt><dd>로봇·기기에 AI가 들어가 현실에서 움직입니다. 인터넷 없이 기기 안에서 도는 AI도 늘었습니다.</dd><dt>나에게 주는 의미</dt><dd>돌봄·시설·물류 현장에서 로봇과 기기를 다루고 점검하는 일이 새 업무가 됩니다.</dd></dl></article><article class="trend"><h3>소버린 AI (한국형 AI)</h3><dl><dt>무엇이 바뀌었나</dt><dd>'독자 AI 파운데이션 모델' 2차 평가(2026.8.18)에서 업스테이지·SKT·LG AI연구원이 통과했고, 3단계에서 2곳으로 좁혀질 예정입니다.</dd><dt>나에게 주는 의미</dt><dd>공공기관·국내 기업에서 국내 AI를 쓰는 일이 늘 수 있습니다.</dd></dl></article><article class="trend"><h3>책임 있는 AI·규제</h3><dl><dt>무엇이 바뀌었나</dt><dd>한국 AI 기본법 시행(2026.1.22), 생성형 AI 결과물 표시와 딥페이크 표시 의무가 생겼습니다. 채용 판단 AI는 고영향 AI입니다.</dd><dt>나에게 주는 의미</dt><dd>AI 면접·AI 서류심사를 하는 기업에는 판단 결과를 설명할 방안을 마련할 책무가 있습니다.</dd></dl></article></div><p class="note">국민의 44.5%가 생성형 AI를 써 봤습니다(2025 인터넷이용실태조사, 전년보다 11.2%p 증가). 쓰지 않는 60대·70대 이상은 "이용 방법을 몰라서"라는 답이 상대적으로 많았습니다.</p></section>
+<section id="timeline"><h2>최근 모델 출시 흐름</h2><p class="sub">정확한 날짜보다 흐름이 중요합니다. 2026년 가을에 주요 회사의 새 세대가 몰렸습니다.</p><ol class="tl"><li><span class="when">2026년 6월</span><span class="who">Anthropic</span><span class="what">Opus 위의 최상위 등급(Claude Fable·Mythos) 첫 공개. 미국 수출통제로 잠시 중단됐다가 7월 초 재개</span></li><li><span class="when">2026년 9월 초</span><span class="who">OpenAI</span><span class="what">GPT-6 세대 시작. 최상위 등급부터 기업 시험 사용자에게 먼저 공개</span></li><li><span class="when">2026년 9월 중·하순</span><span class="who">OpenAI · Anthropic · Google</span><span class="what">GPT-6 중간·저가 등급, Claude Opus·Sonnet 5.5, Gemini 4·3.8 계열과 음성 모델이 잇달아 출시</span></li><li><span class="when">2026년 10월 초</span><span class="who">Mistral · Google 등</span><span class="what">유럽 대표 모델의 새 버전, 이미지 생성 모델 업데이트 등 후속 출시가 이어지는 중</span></li></ol></section>
+<section id="law"><h2>규제 동향</h2><p class="sub">한국은 AI 기본법이 이미 시행 중이고, EU는 핵심 의무를 뒤로 미루는 중입니다. 두 곳 모두 <b>채용·인사에 쓰는 AI</b>를 특별 관리 대상으로 봅니다.</p><div class="tscroll"><table class="cmp"><thead><tr><th scope="col">구분</th><th scope="col">한국 AI 기본법</th><th scope="col">EU AI 법</th></tr></thead><tbody><tr><th scope="row">시행 상황</th><td>2026년 1월 22일 시행령과 함께 시행</td><td>2026년 6월 고위험 의무 연기에 잠정 합의</td></tr><tr class="hl"><th scope="row">채용·인사 AI</th><td>'고영향 AI' 영역에 채용·대출심사 등 권리·의무에 중대한 판단이 포함</td><td>고용·HR 등 고위험 의무 → 2027년 12월 2일로 연기</td></tr><tr><th scope="row">사업자 책무</th><td>위험관리, 설명 방안, 이용자 보호, 사람의 관리·감독, 문서 작성·보관</td><td>제품 안에 들어간 고위험 AI(의료기기 등) → 2028년 8월 2일로 연기</td></tr><tr><th scope="row">AI 생성물 표시</th><td>생성형 AI 서비스 사전 고지와 결과물 표시. 딥페이크는 눈에 보이는 방식으로 반드시 표시</td><td>2026년 8월 이전 출시 시스템의 워터마크 의무 → 2026년 12월 2일로 연기</td></tr><tr><th scope="row">의무 주체</th><td>AI를 개발하거나 AI 서비스를 제공하는 사업자. 도구를 쓰는 개인 이용자는 표시 의무 없음</td><td>제공자(provider)와 도입자(deployer)</td></tr><tr><th scope="row">제재</th><td>과태료 최대 3천만 원. 최소 1년 계도기간 동안 사실조사·과태료 유예</td><td>위반 유형별 과징금</td></tr></tbody></table></div><p class="note">한국 법의 '고성능 AI'(학습 연산량 10<sup>26</sup>회 이상)에는 별도의 안전성 확보 의무가 있으며, 초대형 모델 개발사에 해당합니다. EU의 연기 일정은 최종 확정 과정에서 바뀔 수 있습니다.</p></section>
+<section id="terms"><h2>용어집 <span class="count" id="count">56개</span></h2><p class="sub">검색하거나 분류를 눌러 좁혀 보세요.</p><div class="filters"><label class="search" for="q"><span class="vh">용어 검색</span><input id="q" type="search" placeholder="예) 메타프롬프트, MCP, 환각" autocomplete="off"></label><div class="chips" role="group" aria-label="분류"><button type="button" class="chip" data-g="all" aria-pressed="true">전체</button><button type="button" class="chip" data-g="prompt" aria-pressed="false">프롬프트·컨텍스트 <span>12</span></button><button type="button" class="chip" data-g="model" aria-pressed="false">모델·기술 <span>14</span></button><button type="button" class="chip" data-g="agent" aria-pressed="false">에이전트·연결 <span>13</span></button><button type="button" class="chip" data-g="data" aria-pressed="false">검색·데이터 <span>5</span></button><button type="button" class="chip" data-g="use" aria-pressed="false">활용·문화 <span>5</span></button><button type="button" class="chip" data-g="policy" aria-pressed="false">안전·정책 <span>7</span></button></div></div><div class="group" data-group="prompt"><h3 class="gh">프롬프트·컨텍스트</h3><dl class="gloss"><div class="term" data-g="prompt"><dt><span class="ko">프롬프트</span><span class="en">Prompt</span></dt><dd class="mean">AI에게 주는 지시문·질문</dd><dd class="ex">업무 지시서 한 장</dd></div><div class="term" data-g="prompt"><dt><span class="ko">시스템 프롬프트·지침</span><span class="en">System prompt</span></dt><dd class="mean">대화 내내 적용되는 기본 규칙(말투·역할·금지 사항)</dd><dd class="ex">신입사원에게 주는 근무 수칙. 프로젝트 지침, 맞춤 GPT의 설명</dd></div><div class="term" id="term-meta" data-g="prompt"><dt><span class="ko">메타프롬프트</span><span class="en">Meta-prompt</span></dt><dd class="mean">프롬프트를 만들거나 고치는 프롬프트. AI에게 좋은 지시문을 대신 써 달라고 하는 것</dd><dd class="ex">지시서 쓰는 법을 지시하는 지시서 (아래 자세히)</dd></div><div class="term" data-g="prompt"><dt><span class="ko">역할 지정</span><span class="en">Persona</span></dt><dd class="mean">AI에게 맡을 역할을 정해 주기</dd><dd class="ex">"당신은 20년 경력의 면접관입니다"</dd></div><div class="term" data-g="prompt"><dt><span class="ko">퓨샷</span><span class="en">Few-shot</span></dt><dd class="mean">예시를 몇 개 보여 주고 같은 형식으로 답하게 하기</dd><dd class="ex">잘 쓴 경력 문장 2개를 보여 주고 "이렇게 써 주세요"</dd></div><div class="term" data-g="prompt"><dt><span class="ko">프롬프트 체이닝</span><span class="en">Prompt chaining</span></dt><dd class="mean">큰 일을 여러 단계 프롬프트로 나눠 이어서 시키기</dd><dd class="ex">실습의 ①→②→③→④ 구성</dd></div><div class="term" data-g="prompt"><dt><span class="ko">생각의 사슬</span><span class="en">Chain of Thought</span></dt><dd class="mean">답을 바로 내지 않고 단계별로 따져 보게 하기</dd><dd class="ex">"계산 과정을 한 줄씩 보여 주세요"</dd></div><div class="term" data-g="prompt"><dt><span class="ko">프롬프트 템플릿·카드</span><span class="en">Template</span></dt><dd class="mean">자주 쓰는 프롬프트를 빈칸과 함께 저장해 두는 것</dd><dd class="ex">워크북의 '나만의 프롬프트 카드'(역할·상황·요청·형식·제약)</dd></div><div class="term" data-g="prompt"><dt><span class="ko">컨텍스트 엔지니어링</span><span class="en">Context engineering</span></dt><dd class="mean">지시문뿐 아니라 AI가 볼 자료·규칙·예시·도구를 골라 넣는 설계. 프롬프트 엔지니어링의 다음 단계로 불림</dd><dd class="ex">일을 잘 시키려면 말보다 책상 위에 무엇을 펼쳐 주느냐가 중요</dd></div><div class="term" data-g="prompt"><dt><span class="ko">컨텍스트 윈도우</span><span class="en">Context window</span></dt><dd class="mean">AI가 한 번에 기억하며 다룰 수 있는 글의 양</dd><dd class="ex">책상 크기. 최신 모델은 약 100만 토큰</dd></div><div class="term" data-g="prompt"><dt><span class="ko">토큰</span><span class="en">Token</span></dt><dd class="mean">AI가 글을 자르는 단위. 요금과 길이 계산의 기준</dd><dd class="ex">글자·낱말 조각. 한국어 1글자당 토큰 수는 모델마다 다름</dd></div><div class="term" data-g="prompt"><dt><span class="ko">구조화 출력</span><span class="en">Structured output</span></dt><dd class="mean">정해진 형식(표·목록·JSON)으로만 답하게 하기</dd><dd class="ex">"표 말고 짧은 목록으로 써 주세요"</dd></div></dl></div><div class="group" data-group="model"><h3 class="gh">모델·기술</h3><dl class="gloss"><div class="term" data-g="model"><dt><span class="ko">대형 언어 모델</span><span class="en">LLM</span></dt><dd class="mean">방대한 글을 학습해 다음 말을 예측하며 글을 쓰는 AI</dd><dd class="ex">ChatGPT·Gemini·Claude의 엔진</dd></div><div class="term" data-g="model"><dt><span class="ko">파운데이션 모델</span><span class="en">Foundation model</span></dt><dd class="mean">여러 용도의 바탕이 되는 범용 대형 모델</dd><dd class="ex">건물의 기초. '독자 AI 파운데이션 모델' 사업의 그 말</dd></div><div class="term" data-g="model"><dt><span class="ko">프런티어 모델</span><span class="en">Frontier model</span></dt><dd class="mean">그 시점 가장 앞선 최고 성능 모델</dd><dd class="ex">각 회사의 최상위 등급 모델</dd></div><div class="term" data-g="model"><dt><span class="ko">멀티모달</span><span class="en">Multimodal</span></dt><dd class="mean">글뿐 아니라 사진·소리·영상을 함께 이해하고 만드는 것</dd><dd class="ex">공고 화면을 찍어 올리면 내용을 읽어 줌</dd></div><div class="term" data-g="model"><dt><span class="ko">추론 모델·생각 모드</span><span class="en">Reasoning model</span></dt><dd class="mean">답하기 전에 오래 따져 보는 모델. 느리지만 수학·분석에 강함</dd><dd class="ex">앱의 'Thinking', '깊게 생각' 버튼</dd></div><div class="term" data-g="model"><dt><span class="ko">테스트 타임 컴퓨트</span><span class="en">Test-time compute</span></dt><dd class="mean">학습이 아니라 답할 때 계산을 더 써서 성능을 높이는 방식</dd><dd class="ex">시험 볼 때 시간을 더 주는 것</dd></div><div class="term" data-g="model"><dt><span class="ko">환각</span><span class="en">Hallucination</span></dt><dd class="mean">그럴듯하지만 사실이 아닌 내용을 지어내는 현상</dd><dd class="ex">없는 자격증·숫자를 넣는 것. "지어내지 말아 주세요"가 대비책</dd></div><div class="term" data-g="model"><dt><span class="ko">지식 컷오프</span><span class="en">Knowledge cutoff</span></dt><dd class="mean">모델이 학습한 자료의 마지막 시점</dd><dd class="ex">그 뒤 바뀐 최저임금·제도는 모를 수 있음 → 공공 출처로 확인</dd></div><div class="term" data-g="model"><dt><span class="ko">오픈 웨이트</span><span class="en">Open weights</span></dt><dd class="mean">모델 파일을 공개해 누구나 내려받아 쓸 수 있는 모델</dd><dd class="ex">폐쇄형보다 6~18개월 뒤처지지만 격차가 줄어드는 중</dd></div><div class="term" data-g="model"><dt><span class="ko">sLM·온디바이스 AI</span><span class="en">On-device AI</span></dt><dd class="mean">작은 모델을 휴대폰·노트북 안에서 돌리는 것</dd><dd class="ex">인터넷 없이 동작, 개인정보가 기기 밖으로 안 나감</dd></div><div class="term" data-g="model"><dt><span class="ko">파인튜닝</span><span class="en">Fine-tuning</span></dt><dd class="mean">이미 만든 모델을 특정 분야 자료로 추가 학습</dd><dd class="ex">일반의를 전문의로 수련시키기</dd></div><div class="term" data-g="model"><dt><span class="ko">증류</span><span class="en">Distillation</span></dt><dd class="mean">큰 모델의 능력을 작은 모델에 가르쳐 옮기는 것</dd><dd class="ex">스승이 요점만 정리해 제자에게 전수</dd></div><div class="term" data-g="model"><dt><span class="ko">전문가 혼합</span><span class="en">MoE</span></dt><dd class="mean">질문마다 모델 안의 일부 '전문가'만 켜서 답하는 구조</dd><dd class="ex">큰 병원에서 해당 과만 진료</dd></div><div class="term" data-g="model"><dt><span class="ko">벤치마크</span><span class="en">Benchmark</span></dt><dd class="mean">모델 성능을 비교하는 표준 시험</dd><dd class="ex">독자 AI 2차 평가는 벤치마크 40·전문가 35·사용자 25점으로 채점</dd></div></dl></div><div class="group" data-group="agent"><h3 class="gh">에이전트·연결</h3><dl class="gloss"><div class="term" data-g="agent"><dt><span class="ko">AI 에이전트</span><span class="en">AI agent</span></dt><dd class="mean">목표를 받아 계획을 세우고 도구를 써서 여러 단계를 스스로 처리하는 AI</dd><dd class="ex">"다음 주 출장 잡아 줘" 하면 검색부터 예약까지</dd></div><div class="term" data-g="agent"><dt><span class="ko">에이전틱 AI</span><span class="en">Agentic AI</span></dt><dd class="mean">에이전트가 일하는 방식 전체를 가리키는 말. 2026년 최대 키워드</dd><dd class="ex">'도구'에서 '업무 주체'로</dd></div><div class="term" data-g="agent"><dt><span class="ko">도구 사용·함수 호출</span><span class="en">Tool use</span></dt><dd class="mean">AI가 검색·계산기·달력 같은 기능을 필요할 때 불러 쓰는 것</dd><dd class="ex">계산을 암산 대신 계산기로</dd></div><div class="term" data-g="agent"><dt><span class="ko">커넥터·연결 앱</span><span class="en">Connector</span></dt><dd class="mean">AI 앱에 메일·드라이브·업무 프로그램을 이어 주는 기능</dd><dd class="ex">AI 앱의 '앱 연결' 메뉴</dd></div><div class="term" data-g="agent"><dt><span class="ko">MCP</span><span class="en">Model Context Protocol</span></dt><dd class="mean">AI와 도구·데이터를 잇는 공통 규격. Anthropic이 만들어 리눅스재단에 기부</dd><dd class="ex">AI용 USB-C 단자. 한 번 만들면 여러 AI에 꽂아 씀</dd></div><div class="term" data-g="agent"><dt><span class="ko">A2A</span><span class="en">Agent2Agent</span></dt><dd class="mean">서로 다른 회사의 AI 에이전트끼리 찾고 대화하는 규격. 구글이 만들어 2026년 8월 기부</dd><dd class="ex">AI끼리 업무 협조를 주고받는 공문 양식</dd></div><div class="term" data-g="agent"><dt><span class="ko">AGENTS.md</span><span class="en">AGENTS.md</span></dt><dd class="mean">코딩 에이전트에게 프로젝트 규칙을 알려 주는 안내 파일. OpenAI가 제안</dd><dd class="ex">작업장 문 앞에 붙인 작업 수칙</dd></div><div class="term" data-g="agent"><dt><span class="ko">에이전틱 AI 재단</span><span class="en">AAIF</span></dt><dd class="mean">MCP·A2A·AGENTS.md 등을 함께 관리하는 리눅스재단 산하 재단. 2025년 12월 출범</dd><dd class="ex">에이전트 표준의 공동 관리위원회</dd></div><div class="term" data-g="agent"><dt><span class="ko">스킬</span><span class="en">Skills</span></dt><dd class="mean">특정 일을 잘하는 방법(지침·양식·스크립트)을 묶어 둔 패키지. AI가 필요할 때 꺼내 씀</dd><dd class="ex">부서별 업무 매뉴얼 묶음</dd></div><div class="term" data-g="agent"><dt><span class="ko">멀티 에이전트·서브에이전트</span><span class="en">Multi-agent</span></dt><dd class="mean">여러 에이전트가 일을 나눠 맡고, 총괄 에이전트가 결과를 모음</dd><dd class="ex">팀장과 팀원</dd></div><div class="term" data-g="agent"><dt><span class="ko">컴퓨터 사용·브라우저 에이전트</span><span class="en">Computer use</span></dt><dd class="mean">AI가 화면을 보고 마우스·키보드를 직접 조작</dd><dd class="ex">웹사이트에서 양식을 대신 채우기</dd></div><div class="term" data-g="agent"><dt><span class="ko">휴먼 인 더 루프</span><span class="en">HITL</span></dt><dd class="mean">중요한 단계에서 사람이 확인·승인하도록 만드는 설계</dd><dd class="ex">결제 전 "이대로 진행할까요?"</dd></div><div class="term" data-g="agent"><dt><span class="ko">가드레일</span><span class="en">Guardrail</span></dt><dd class="mean">AI가 해서는 안 되는 일을 막는 안전 장치</dd><dd class="ex">개인정보 출력 차단, 위험 요청 거절</dd></div></dl></div><div class="group" data-group="data"><h3 class="gh">검색·데이터</h3><dl class="gloss"><div class="term" data-g="data"><dt><span class="ko">검색 증강 생성</span><span class="en">RAG</span></dt><dd class="mean">답하기 전에 정해진 자료를 검색해 그 내용을 근거로 답함</dd><dd class="ex">기관 규정집을 보고 답하는 사내 챗봇</dd></div><div class="term" data-g="data"><dt><span class="ko">그라운딩</span><span class="en">Grounding</span></dt><dd class="mean">답을 실제 출처에 묶어 두는 것</dd><dd class="ex">답 아래 출처 링크가 붙는 검색형 AI</dd></div><div class="term" data-g="data"><dt><span class="ko">임베딩·벡터 DB</span><span class="en">Embedding</span></dt><dd class="mean">글의 의미를 숫자로 바꿔 저장하고, 뜻이 비슷한 글을 찾아내는 기술</dd><dd class="ex">RAG의 바탕</dd></div><div class="term" data-g="data"><dt><span class="ko">딥리서치</span><span class="en">Deep research</span></dt><dd class="mean">AI가 수십 개 웹페이지를 읽고 보고서를 써 주는 기능</dd><dd class="ex">출처 확인은 사람의 몫</dd></div><div class="term" data-g="data"><dt><span class="ko">메모리</span><span class="en">Memory</span></dt><dd class="mean">이전 대화 내용을 기억해 다음 대화에 쓰는 기능</dd><dd class="ex">개인정보가 남을 수 있어 설정 확인 필요</dd></div></dl></div><div class="group" data-group="use"><h3 class="gh">활용·문화</h3><dl class="gloss"><div class="term" data-g="use"><dt><span class="ko">바이브 코딩</span><span class="en">Vibe coding</span></dt><dd class="mean">코드를 직접 쓰지 않고 말로 설명해 AI가 프로그램을 만들게 하는 방식</dd><dd class="ex">비개발자도 간단한 도구를 만듦</dd></div><div class="term" data-g="use"><dt><span class="ko">코파일럿</span><span class="en">Copilot</span></dt><dd class="mean">사람 옆에서 돕는 보조형 AI</dd><dd class="ex">에이전트(맡기는 AI)와 대비되는 말</dd></div><div class="term" data-g="use"><dt><span class="ko">AI 슬롭·워크슬롭</span><span class="en">Slop · Workslop</span></dt><dd class="mean">겉보기에만 그럴듯하고 내용이 빈 AI 결과물. 워크슬롭은 그런 문서를 동료에게 넘겨 일을 늘리는 것</dd><dd class="ex">2025년 미국 연구자들이 퍼뜨린 말(대략적 설명)</dd></div><div class="term" data-g="use"><dt><span class="ko">섀도 AI</span><span class="en">Shadow AI</span></dt><dd class="mean">회사가 허용하지 않은 AI 도구를 개인적으로 업무에 쓰는 것</dd><dd class="ex">정보 유출 위험</dd></div><div class="term" data-g="use"><dt><span class="ko">AI 리터러시</span><span class="en">AI literacy</span></dt><dd class="mean">AI의 능력과 한계를 알고 안전하게 활용하는 힘</dd><dd class="ex">실습 체크리스트가 키우는 역량</dd></div></dl></div><div class="group" data-group="policy"><h3 class="gh">안전·정책</h3><dl class="gloss"><div class="term" data-g="policy"><dt><span class="ko">딥페이크</span><span class="en">Deepfake</span></dt><dd class="mean">AI로 만든 진짜 같은 가짜 얼굴·목소리</dd><dd class="ex">보이스피싱·사칭에 악용</dd></div><div class="term" data-g="policy"><dt><span class="ko">워터마크</span><span class="en">Watermark</span></dt><dd class="mean">AI 생성물임을 표시하는 표식</dd><dd class="ex">눈에 보이는 방식과 파일 속에 숨기는 방식</dd></div><div class="term" data-g="policy"><dt><span class="ko">레드팀</span><span class="en">Red team</span></dt><dd class="mean">출시 전에 일부러 공격·악용해 보며 약점을 찾는 검증 활동</dd><dd class="ex">모의 해킹</dd></div><div class="term" data-g="policy"><dt><span class="ko">고영향 AI</span><span class="en">High-impact AI</span></dt><dd class="mean">생명·안전·기본권에 큰 영향을 주는 영역의 AI(한국 AI 기본법)</dd><dd class="ex">채용·대출심사·의료 등</dd></div><div class="term" data-g="policy"><dt><span class="ko">소버린 AI</span><span class="en">Sovereign AI</span></dt><dd class="mean">자국 데이터·인프라로 만드는 AI 기술 주권</dd><dd class="ex">한국 '독자 AI 파운데이션 모델' 사업</dd></div><div class="term" data-g="policy"><dt><span class="ko">피지컬 AI</span><span class="en">Physical AI</span></dt><dd class="mean">로봇·기기 속에서 현실 세계를 보고 움직이는 AI</dd><dd class="ex">휴머노이드, 보행 보조 로봇</dd></div><div class="term" data-g="policy"><dt><span class="ko">범용 인공지능</span><span class="en">AGI</span></dt><dd class="mean">사람처럼 거의 모든 지적 작업을 해내는 AI</dd><dd class="ex">정의와 도달 시점에 합의 없음</dd></div></dl></div><p class="empty" id="empty" hidden>찾는 용어가 없습니다. 다른 낱말로 검색해 보세요.</p></section>
+<section id="meta"><h2>메타프롬프트 자세히</h2><p class="sub">메타프롬프트는 "좋은 프롬프트를 AI가 대신 쓰거나 고치게 하는 프롬프트"입니다. 무엇을 어떻게 물어야 할지 막막할 때 가장 쓸모 있습니다.</p><div class="layers" aria-label="프롬프트의 세 층"><div><b>프롬프트</b><span>사람 → AI, 일을 시킴</span><q>내 경력으로 한 줄 소개를 써 주세요</q></div><div><b>시스템 프롬프트·지침</b><span>사람 → AI, 대화 내내 지킬 규칙</span><q>항상 존댓말로, 지어내지 말고</q></div><div class="on"><b>메타프롬프트</b><span>사람 → AI, 프롬프트를 만들게 함</span><q>한 줄 소개를 잘 뽑을 프롬프트를 써 주세요</q></div></div><article class="mp"><div class="mph"><h3>쓰임 ① 프롬프트를 새로 써 달라고 하기</h3><span class="muted">무엇을 어떻게 물어야 할지 막막할 때</span></div><div class="code"><div class="bar"><span>복사해서 쓰기</span><button class="copy" type="button" data-target="m1">복사</button></div><pre id="m1">당신은 프롬프트 작성 전문가입니다.
+아래 목적에 맞는 프롬프트를 써 주세요.
+- 목적: 제가 관심 있는 채용공고를 쉽게 요약하기
+- 사용자: 휴대폰 AI 앱이 아직 익숙하지 않은 저
+- 포함할 것: 역할, 단계별 지시, 출력 형식, "지어내지 말아 주세요"와 [확인 필요] 표시 요청
+- 프롬프트만 쓰고, 왜 그렇게 썼는지 마지막에 3줄로 설명해 주세요.</pre></div></article><article class="mp"><div class="mph"><h3>쓰임 ② 내 프롬프트를 고쳐 달라고 하기</h3><span class="muted">써 둔 프롬프트의 답이 마음에 들지 않을 때</span></div><div class="code"><div class="bar"><span>복사해서 쓰기</span><button class="copy" type="button" data-target="m2">복사</button></div><pre id="m2">아래는 제가 쓴 프롬프트입니다. 더 정확한 답이 나오도록 고쳐 주세요.
+- 빠진 정보(역할, 대상, 형식, 분량)를 채우고, 애매한 말을 구체적으로 바꿔 주세요.
+- 고친 점을 앞뒤 비교로 보여 주세요.
+<mark>【내 프롬프트 붙여 넣기】</mark></pre></div></article><article class="mp"><div class="mph"><h3>쓰임 ③ AI가 먼저 질문하며 완성하게 하기</h3><span class="muted">내가 무엇을 원하는지도 정리되지 않았을 때</span></div><div class="code"><div class="bar"><span>복사해서 쓰기</span><button class="copy" type="button" data-target="m3">복사</button></div><pre id="m3">제가 하고 싶은 일은 <mark>【예) 자기소개서 초안 쓰기】</mark>입니다.
+좋은 프롬프트를 만들 수 있도록 제게 필요한 것을 하나씩 질문해 주세요(최대 5개).
+답을 다 들으면 바로 복사해 쓸 수 있는 프롬프트 한 개를 써 주세요.</pre></div></article><p class="note">AI가 써 준 프롬프트도 내 상황에 맞는지 읽어 보고, 한두 번 돌려 본 뒤 고쳐 씁니다.</p></section>
+<section id="keep"><h2>꼭 기억해 둘 것</h2><p class="sub">용어를 다 외우지 않아도 괜찮습니다. 아래 8가지만 알아도 AI를 훨씬 잘 쓸 수 있습니다.</p><div class="tscroll"><table class="cmp easy"><thead><tr><th scope="col">용어</th><th scope="col">쉬운 뜻</th><th scope="col">이렇게 써 보세요</th></tr></thead><tbody><tr><th scope="row">프롬프트</th><td>AI에게 보내는 부탁 문장</td><td>역할·상황·요청·형식·제약을 넣어 부탁하기</td></tr><tr><th scope="row">환각</th><td>AI의 지어내기</td><td>부탁 끝에 "지어내지 말아 주세요" 붙이기</td></tr><tr><th scope="row">[확인 필요]</th><td>모르는 것을 모른다고 표시하게 하기</td><td>"확실하지 않으면 [확인 필요]로 표시해 주세요"</td></tr><tr><th scope="row">프롬프트 체이닝</th><td>단계로 나눠 묻기</td><td>한 번에 하나씩 묻고, 답을 보고 다음을 묻기</td></tr><tr><th scope="row">메타프롬프트</th><td>질문을 어떻게 할지 AI에게 묻기</td><td>위 '쓰임 ③'을 복사해 써 보기</td></tr><tr><th scope="row">멀티모달·음성</th><td>사진 올리기, 말로 입력하기</td><td>공고 화면 캡처, 키보드 마이크 버튼</td></tr><tr><th scope="row">에이전트</th><td>대신 처리해 주는 AI</td><td>결제·제출 전에는 내가 한 번 더 확인하기</td></tr><tr><th scope="row">딥페이크</th><td>가짜 얼굴·목소리</td><td>돈을 요구하는 영상·전화는 끊고 확인하기</td></tr></tbody></table></div><h3>AI를 쓸 때 꼭 지킬 3가지</h3><ol class="rules3"><li><b>개인정보는 넣지 않습니다.</b> 이름·주민번호·연락처·주소·계좌번호는 쓰지 않고, 회사명은 "○○공단"처럼 바꿉니다.</li><li><b>숫자와 제도는 직접 확인합니다.</b> 지원금·최저임금·신청 기간은 AI가 틀리기 쉽습니다. 고용24나 중장년내일센터(☎ 1350)에서 확인합니다.</li><li><b>마지막 확인은 내가 합니다.</b> AI가 대신 처리해 주더라도 결제·제출·전송 전에는 내 눈으로 한 번 더 봅니다.</li></ol></section>
+<section id="src"><h2>출처</h2><ul class="src"><li><a href="https://llmgateway.io/timeline" target="_blank" rel="noopener">LLM Gateway — 모델 출시 타임라인</a></li><li><a href="https://www.llmreference.com/model-family/gpt-6" target="_blank" rel="noopener">LLM Reference — GPT-6 모델 계열</a></li><li><a href="https://news.bgov.com/artificial-intelligence/openai-rolls-out-gpt-6-astra-model-with-cyber-guardrails-1" target="_blank" rel="noopener">Bloomberg Government — OpenAI GPT-6 Astra 출시 (2026.9.3)</a></li><li><a href="https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-september-2026/" target="_blank" rel="noopener">Google — 2026년 9월 AI 발표 모음</a></li><li><a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener">Anthropic — Fable·Mythos 접근 재개 안내</a></li><li><a href="https://llm-stats.com/ai-trends" target="_blank" rel="noopener">LLM Stats — AI 트렌드 (2026년 10월)</a></li><li><a href="https://www.flowhunt.io/blog/agentic-ai-foundation-a2a-mcp-standards/" target="_blank" rel="noopener">FlowHunt — A2A가 MCP와 함께 리눅스재단으로 (2026.8.25)</a></li><li><a href="https://news.sktelecom.com/218116" target="_blank" rel="noopener">SK텔레콤 뉴스룸 — 2026년 AI 트렌드 5가지 키워드</a></li><li><a href="https://www.mt.co.kr/tech/2026/08/18/2026081814570930924" target="_blank" rel="noopener">머니투데이 — 독자 AI 파운데이션 모델 2차 평가 (2026.8.18)</a></li><li><a href="https://www.mt.co.kr/tech/2026/03/31/2026033111234563860" target="_blank" rel="noopener">머니투데이 — 2025 인터넷이용실태조사 생성형 AI 경험률</a></li><li><a href="https://wikidocs.net/blog/@openwiki/28121/" target="_blank" rel="noopener">위키독스 — AI 기본법 표시 의무 정리 (2026년 8월 기준)</a></li><li><a href="https://www.bkl.co.kr/law/insight/newsletter/6226" target="_blank" rel="noopener">법무법인 태평양 — AI 기본법 시행령·고영향 AI</a></li><li><a href="https://datamatters.sidley.com/2026/06/22/eu-lawmakers-reach-provisional-agreement-to-delay-key-eu-ai-act-obligations/" target="_blank" rel="noopener">Sidley — EU AI 법 고위험 의무 연기 잠정 합의 (2026.6.22)</a></li></ul></section>
+</div>
+<script>
+(function(){
+  var q=document.getElementById('q'), chips=[].slice.call(document.querySelectorAll('.chip')),
+      terms=[].slice.call(document.querySelectorAll('.term')), groups=[].slice.call(document.querySelectorAll('.group')),
+      count=document.getElementById('count'), empty=document.getElementById('empty'), g='all';
+  function norm(s){return (s||'').toLowerCase().replace(/\s+/g,'');}
+  function run(){
+    var k=norm(q.value), n=0;
+    terms.forEach(function(t){
+      var ok=(g==='all'||t.dataset.g===g)&&(!k||norm(t.textContent).indexOf(k)>-1);
+      t.hidden=!ok; if(ok)n++;
+    });
+    groups.forEach(function(gr){gr.hidden=!gr.querySelector('.term:not([hidden])');});
+    count.textContent=n+'개'; empty.hidden=n>0;
+  }
+  q.addEventListener('input',run);
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    g=c.dataset.g; chips.forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');}); run();
+  });});
+  document.querySelectorAll('button.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.target); if(!el)return;
+      var done=function(){btn.textContent='복사됨';btn.classList.add('done');setTimeout(function(){btn.textContent='복사';btn.classList.remove('done');},1800);};
+      var fb=function(){try{var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='길게 눌러 복사';setTimeout(function(){btn.textContent='복사';},2500);}catch(e){}};
+      try{ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(el.textContent.trim()).then(done,fb);} else fb(); }catch(e){fb();}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
