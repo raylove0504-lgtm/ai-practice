@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>경력지원·생활 정보 사이트 모음</title>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a reference handbook — one reading column with a sticky index, card grid for trends, a filterable dictionary for terms */
+:root{
+  --bg:#F4F5F7; --surface:#FFFFFF; --ink:#18202B; --muted:#5A6573; --line:#D8DDE4;
+  --accent:#2C4A8A; --accent-soft:#E6ECF7; --accent-ink:#FFFFFF;
+  --mark:#FFE27A; --mark-ink:#18202B;
+  --warn:#8A4B12; --warn-soft:#FBF0E2;
+  --f-display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161D; --surface:#19202A; --ink:#E7EBF0; --muted:#9CA7B5; --line:#2C3542;
+  --accent:#8EA9E6; --accent-soft:#1E2A40; --accent-ink:#11161D;
+  --mark:#5C4C10; --mark-ink:#FFF1BF;
+  --warn:#F0B37A; --warn-soft:#2E2216;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161D; --surface:#19202A; --ink:#E7EBF0; --muted:#9CA7B5; --line:#2C3542;
+  --accent:#8EA9E6; --accent-soft:#1E2A40; --accent-ink:#11161D;
+  --mark:#5C4C10; --mark-ink:#FFF1BF;
+  --warn:#F0B37A; --warn-soft:#2E2216;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}
+.wrap{max-width:900px;margin:0 auto;padding-inline:18px;padding-block:32px 72px;display:flex;flex-direction:column;gap:52px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.3;margin:0;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,2.9rem);font-weight:700;letter-spacing:-.015em}
+h1 .yr{font-family:var(--f-mono);font-weight:500;color:var(--accent);font-size:.62em;vertical-align:.35em;margin-left:.2em}
+h2{font-size:1.5rem;font-weight:700;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h3{font-size:1.08rem;font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.muted{color:var(--muted)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+section{display:flex;flex-direction:column;gap:16px;scroll-margin-top:70px}
+.sub{color:var(--muted);max-width:68ch}
+.note{font-size:.93rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;max-width:72ch}
+.tip{background:var(--accent-soft);border-radius:var(--r);padding:12px 16px;font-size:.96rem}
+mark{background:var(--mark);color:var(--mark-ink);padding:0 .12em;border-radius:3px}
+
+/* header */
+.top{display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-family:var(--f-display);font-size:.8rem;font-weight:600;letter-spacing:.09em;color:var(--accent)}
+.asof{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.9rem}
+.stamp{font-family:var(--f-mono);font-size:.82rem;border:1.5px solid var(--ink);border-radius:4px;padding:2px 8px;letter-spacing:.02em}
+.lead{font-size:1.1rem;max-width:62ch}
+
+/* nav */
+.jump{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin-inline:-18px;padding:10px 18px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-size:.88rem;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.jump a:hover{border-color:var(--accent);color:var(--accent)}
+
+/* glance */
+.glance{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.glance li{padding:14px 0;border-bottom:1px solid var(--line);max-width:74ch}
+.glance b{font-family:var(--f-display);font-weight:600}
+
+/* trends */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.trend.big{grid-column:1/-1;background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.trend.big dt{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.trend dl{margin:0;display:flex;flex-direction:column;gap:4px}
+.trend dt{font-size:.76rem;font-weight:700;letter-spacing:.07em;color:var(--muted);margin-top:4px}
+.trend dd{margin:0;font-size:.95rem}
+.trend.big dl{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.trend.big dt:nth-of-type(1){grid-column:1;grid-row:1}.trend.big dd:nth-of-type(1){grid-column:1;grid-row:2}
+.trend.big dt:nth-of-type(2){grid-column:2;grid-row:1}.trend.big dd:nth-of-type(2){grid-column:2;grid-row:2}
+@media (max-width:600px){.trend.big dl{display:flex}}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0 0 0 4px;display:flex;flex-direction:column;gap:0;border-left:2px solid var(--line);margin-left:6px}
+.tl li{position:relative;padding:0 0 20px 22px;display:grid;grid-template-columns:11em minmax(0,1fr);gap:2px 16px}
+.tl li::before{content:"";position:absolute;left:-9px;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2.5px solid var(--accent)}
+.tl li:last-child::before{background:var(--accent)}
+.tl .when{font-family:var(--f-display);font-weight:700;grid-row:1/3}
+.tl .who{font-family:var(--f-mono);font-size:.82rem;color:var(--accent)}
+.tl .what{font-size:.96rem}
+@media (max-width:560px){.tl li{grid-template-columns:1fr}.tl .when{grid-row:auto}}
+
+/* tables */
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.cmp{border-collapse:collapse;width:100%;min-width:560px;font-size:.94rem}
+.cmp th,.cmp td{text-align:left;vertical-align:top;padding:11px 14px;border-bottom:1px solid var(--line)}
+.cmp thead th{font-family:var(--f-display);font-size:.82rem;letter-spacing:.05em;color:var(--muted);background:var(--accent-soft)}
+.cmp tbody th{font-family:var(--f-display);font-weight:600;white-space:nowrap}
+.cmp tbody tr:last-child>*{border-bottom:0}
+.cmp tr.hl>*{background:var(--warn-soft)}
+.cmp tr.hl th{color:var(--warn)}
+
+/* glossary */
+.count{font-family:var(--f-mono);font-size:.85rem;font-weight:500;color:var(--muted)}
+.filters{display:flex;flex-direction:column;gap:10px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 52px);z-index:4;background:var(--bg);padding-block:8px}
+.search input{width:100%;font:inherit;font-size:1rem;padding:10px 14px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink)}
+.search input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:.86rem;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip span{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin-left:2px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"] span{color:inherit;opacity:.7}
+.group{display:flex;flex-direction:column;gap:8px}
+.gh{font-size:.85rem;letter-spacing:.08em;color:var(--accent);padding-top:8px}
+.gloss{margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.term{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.term dt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.term .ko{font-family:var(--f-display);font-weight:700;font-size:1.05rem}
+.term .en{font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+.term dd{margin:0}
+.term .mean{font-size:.95rem}
+.term .ex{font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px}
+#term-meta{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.empty{color:var(--muted);padding:20px 0}
+
+/* meta-prompt */
+.layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.layers>div{padding:14px 16px;display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--line);min-width:0}
+.layers>div:last-child{border-right:0}
+.layers b{font-family:var(--f-display)}
+.layers span{font-size:.82rem;color:var(--muted)}
+.layers q{font-size:.92rem;quotes:"\201C" "\201D"}
+.layers .on{background:var(--accent-soft)}
+.layers .on b{color:var(--accent)}
+@media (max-width:620px){.layers{grid-template-columns:1fr}.layers>div{border-right:0;border-bottom:1px solid var(--line)}.layers>div:last-child{border-bottom:0}}
+.mp{display:flex;flex-direction:column;gap:8px}
+.mph{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.mph .muted{font-size:.88rem}
+.code{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.code .bar{display:flex;justify-content:space-between;align-items:center;padding:6px 8px 6px 14px;border-bottom:1px solid var(--line)}
+.code .bar span{font-size:.78rem;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+.code pre{margin:0;padding:14px 16px;white-space:pre-wrap;font-family:var(--f-body);font-size:.95rem;line-height:1.75;background:var(--bg)}
+button.copy{font:inherit;font-size:.86rem;font-weight:700;border:0;border-radius:8px;padding:7px 14px;background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:36px}
+button.copy.done{background:var(--ink);color:var(--bg)}
+
+/* teach */
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.two>div{display:flex;flex-direction:column;gap:10px;min-width:0}
+.steps,.cautions{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:8px;font-size:.96rem}
+.cautions li::marker{color:var(--warn)}
+
+.rules3{margin:0;padding:16px 18px 16px 2.4em;display:flex;flex-direction:column;gap:10px;background:var(--warn-soft);border:1px solid var(--warn);border-radius:var(--r);font-size:.97rem}
+.rules3 b{color:var(--warn)}
+/* sources */
+.src{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+@media (max-width:560px){
+  .cmp.easy{min-width:0}
+  .cmp.easy thead{display:none}
+  .cmp.easy tr{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .cmp.easy tbody tr:last-child{border-bottom:0}
+  .cmp.easy th,.cmp.easy td{padding:0;border:0;white-space:normal}
+  .cmp.easy td:last-child{color:var(--muted);font-size:.9rem}
+}
+
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:8px}
+.cats a{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.cats a:hover{border-color:var(--accent)}
+.cats b{font-family:var(--f-display)}
+.cats span{font-size:.82rem;color:var(--muted)}
+.cats em{font-style:normal;font-family:var(--f-mono);font-size:.8rem;color:var(--accent)}
+.cat{display:flex;flex-direction:column;gap:12px;scroll-margin-top:70px}
+.cat>p{color:var(--muted);font-size:.95rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.site{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.sh h4{margin:0;font-family:var(--f-display);font-size:1.06rem;line-height:1.35}
+.tag{flex:0 0 auto;font-size:.74rem;font-weight:700;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.what{font-size:.94rem;flex:1}
+.tel{font-size:.9rem;font-weight:700;font-variant-numeric:tabular-nums}
+.go{font-family:var(--f-mono);font-size:.84rem;text-decoration:none;color:var(--accent);border-top:1px dashed var(--line);padding-top:8px;word-break:break-all}
+.go:hover{text-decoration:underline}
+.go.nolink{color:var(--muted)}
+.site[data-g="safe"]{border-color:var(--warn);background:var(--warn-soft)}
+.site[data-g="safe"] .tag{background:var(--warn);color:var(--surface)}
+.filters{position:static;padding-block:0}
+.tips{margin:0;padding:16px 18px 16px 2.4em;display:flex;flex-direction:column;gap:10px;background:var(--accent-soft);border-radius:var(--r);font-size:.97rem}
+.tips b{font-family:var(--f-display)}
+.qr{display:flex;gap:16px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}.qr svg{width:120px;height:120px;flex:0 0 auto;background:#fff;border-radius:6px;padding:4px}.qr b{display:block;font-family:var(--f-display);font-size:1.02rem}.qr p{font-size:.9rem;color:var(--muted)}.qr .url{font-size:.78rem;word-break:break-all;color:var(--muted)}
+</style>
+<div class="wrap">
+<div class="qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" role="img" aria-label="이 페이지로 들어오는 QR코드" shape-rendering="crispEdges" class="segno"><path fill="#fff" d="M0 0h37v37h-37z"/><path class="qrline" stroke="#18202b" d="M2 2.5h7m1 0h1m2 0h1m1 0h2m1 0h8m2 0h7m-33 1h1m5 0h1m1 0h2m1 0h1m1 0h1m4 0h1m1 0h2m1 0h2m1 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m2 0h4m3 0h1m2 0h2m2 0h2m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m3 0h3m1 0h1m2 0h1m1 0h2m3 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m2 0h3m1 0h2m2 0h5m2 0h1m1 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-25 1h4m5 0h4m2 0h1m-24 1h1m1 0h2m1 0h3m2 0h1m1 0h1m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m2 0h1m1 0h2m-33 1h2m1 0h2m3 0h2m1 0h2m3 0h2m1 0h3m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m1 0h1m2 0h2m1 0h1m4 0h1m2 0h1m4 0h2m2 0h4m1 0h2m-33 1h1m1 0h4m1 0h2m1 0h2m1 0h2m4 0h2m3 0h2m1 0h1m1 0h1m-28 1h1m2 0h2m1 0h2m1 0h2m2 0h1m1 0h1m1 0h2m2 0h3m2 0h2m2 0h1m-33 1h1m4 0h1m1 0h1m1 0h4m3 0h4m4 0h2m1 0h1m2 0h2m-32 1h1m3 0h3m1 0h5m1 0h3m1 0h3m5 0h5m-29 1h1m2 0h1m2 0h1m2 0h1m1 0h1m2 0h1m1 0h1m1 0h3m2 0h2m1 0h1m1 0h1m-29 1h1m3 0h1m1 0h2m1 0h3m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h3m-31 1h4m1 0h1m1 0h3m1 0h1m2 0h2m5 0h1m1 0h2m1 0h1m1 0h2m1 0h2m-29 1h1m1 0h2m1 0h8m5 0h1m4 0h2m1 0h2m-31 1h5m2 0h2m1 0h3m3 0h1m4 0h2m4 0h1m-26 1h1m2 0h4m2 0h2m1 0h5m1 0h1m1 0h2m4 0h2m1 0h1m-33 1h2m3 0h1m1 0h1m2 0h3m2 0h1m1 0h7m2 0h2m1 0h1m2 0h1m-31 1h3m1 0h1m1 0h3m6 0h2m1 0h1m2 0h2m1 0h2m2 0h3m-32 1h1m5 0h2m1 0h2m4 0h1m1 0h3m1 0h2m1 0h2m2 0h1m-30 1h1m2 0h1m1 0h2m1 0h2m4 0h2m1 0h2m1 0h1m3 0h5m3 0h1m-25 1h1m1 0h3m1 0h3m2 0h2m1 0h1m1 0h1m3 0h2m-30 1h7m1 0h4m2 0h1m3 0h2m1 0h4m1 0h1m1 0h1m2 0h1m-32 1h1m5 0h1m1 0h1m3 0h1m3 0h1m4 0h4m3 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h1m3 0h1m2 0h8m1 0h1m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m3 0h3m1 0h2m2 0h1m1 0h2m3 0h1m4 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h3m1 0h1m1 0h2m1 0h2m-31 1h1m5 0h1m3 0h2m4 0h2m2 0h1m1 0h3m1 0h3m3 0h1m-33 1h7m1 0h2m1 0h2m2 0h4m1 0h4m4 0h1m1 0h1"/></svg>
+<div><b>휴대폰 카메라로 찍어 보세요</b><p>이 페이지가 열립니다. 필요할 때마다 다시 찍어 찾아보세요.</p><span class="url">raylove0504-lgtm.github.io/ai-practice/sites.html</span></div></div>
+<header class="top"><p class="eyebrow">경력지원서비스 · 함께 보기</p><h1>경력지원·생활 정보 사이트 모음</h1><p class="asof"><span class="stamp">2026년 10월 확인</span><span class="muted">지원 대상·금액·주소는 바뀔 수 있습니다. 신청 전에 각 사이트에서 다시 확인해 주세요.</span></p><p class="lead">일자리부터 교육·자격, 창업, 연금·복지, 건강, 여가까지 인생 후반 준비에 쓸 공공·공식 사이트 60곳을 모았습니다. 교육 시간에 소개한 사이트도 모두 들어 있습니다. 분야를 고르거나 검색해서 찾아보세요.</p></header>
+<nav class="cats" aria-label="분야 바로가기"><a href="#job"><b>취업·일자리 <em>13</em></b><span>일자리를 찾고, 상담과 알선을 받는 곳</span></a><a href="#learn"><b>교육·자격 <em>6</em></b><span>배우고 자격을 따는 곳</span></a><a href="#biz"><b>창업·사회공헌 <em>10</em></b><span>가게를 열거나 의미 있는 일을 시작할 때</span></a><a href="#money"><b>재무·제도 <em>10</em></b><span>연금·노후자금·복지 혜택을 확인하는 곳</span></a><a href="#health"><b>건강 <em>6</em></b><span>검진·치매·마음 건강을 챙기는 곳</span></a><a href="#life"><b>여가·봉사 <em>7</em></b><span>취미·문화·봉사로 시간을 채우는 곳</span></a><a href="#rights"><b>법률·권리 <em>4</em></b><span>임금·근로조건·생활 법률이 궁금할 때</span></a><a href="#safe"><b>사기 예방 <em>4</em></b><span>수상한 연락을 받았을 때</span></a></nav>
+<section><h2>먼저 알아 두세요</h2><ol class="tips"><li><b>지원 대상과 금액은 해마다 바뀝니다.</b> 신청 전에 해당 사이트 공지나 전화로 올해 기준을 꼭 확인합니다.</li><li><b>주소를 직접 입력하거나 이 페이지에서 눌러 들어갑니다.</b> 문자·광고로 온 링크는 가짜 사이트일 수 있습니다. 공공기관 주소는 대부분 .go.kr 또는 .or.kr로 끝납니다.</li><li><b>어디서부터 할지 모르겠다면 ☎ 1350부터.</b> 고용노동부 고객상담센터에서 가까운 중장년내일센터와 고용센터를 안내받을 수 있습니다.</li></ol></section>
+<section id="list"><div class="filters"><label class="search" for="q"><span class="vh">사이트 검색</span><input id="q" type="search" placeholder="예) 연금, 자격증, 치매, 창업" autocomplete="off"></label><div class="chips" role="group" aria-label="분야"><button type="button" class="chip" data-g="all" aria-pressed="true">전체</button><button type="button" class="chip" data-g="job" aria-pressed="false">취업·일자리</button><button type="button" class="chip" data-g="learn" aria-pressed="false">교육·자격</button><button type="button" class="chip" data-g="biz" aria-pressed="false">창업·사회공헌</button><button type="button" class="chip" data-g="money" aria-pressed="false">재무·제도</button><button type="button" class="chip" data-g="health" aria-pressed="false">건강</button><button type="button" class="chip" data-g="life" aria-pressed="false">여가·봉사</button><button type="button" class="chip" data-g="rights" aria-pressed="false">법률·권리</button><button type="button" class="chip" data-g="safe" aria-pressed="false">사기 예방</button></div></div><div class="cat" id="job"><h2>취업·일자리</h2><p>일자리를 찾고, 상담과 알선을 받는 곳</p><div class="grid"><article class="site" data-g="job"><div class="sh"><h4>고용24</h4><span class="tag">가장 먼저</span></div><p class="what">채용공고 검색, 구직 신청, 실업급여, 국민내일배움카드 신청과 직업훈련 과정 찾기, 직업심리검사(직업선호도검사)까지 한곳에서 합니다. 예전 HRD-Net도 여기로 합쳐졌습니다.</p><p class="tel">고용노동부 고객상담센터 ☎ 1350</p><a class="go" href="https://www.work24.go.kr" target="_blank" rel="noopener">work24.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>중장년내일센터</h4><span class="tag">상담</span></div><p class="what">만 40세 이상 대상 생애경력설계, 전직스쿨, 재도약 프로그램, 이력서·면접 컨설팅을 무료로 받습니다. 생애경력설계는 온라인으로도 들을 수 있습니다.</p><p class="tel">☎ 1350</p><a class="go" href="https://www.elifeplan.or.kr" target="_blank" rel="noopener">elifeplan.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>노사발전재단</h4></div><p class="what">중장년내일센터를 운영하는 기관입니다. 지역 센터 소식과 프로그램 일정을 확인합니다.</p><a class="go" href="https://www.nosa.or.kr" target="_blank" rel="noopener">nosa.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>노인일자리 여기</h4><span class="tag">60세 이상</span></div><p class="what">만 60세·65세 이상 노인일자리(공익활동·사회서비스·시장형·취업알선)를 찾고 신청합니다. 비슷한 가짜 사이트에 주의하세요.</p><p class="tel">☎ 1544-3388 · 주민센터·시니어클럽 방문 신청도 가능</p><a class="go" href="https://www.seniorro.or.kr" target="_blank" rel="noopener">seniorro.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>나라일터</h4><span class="tag">공공 일자리</span></div><p class="what">공무원·공공기관의 경력채용과 기간제 근로자 채용공고를 모아 봅니다.</p><a class="go" href="https://www.gojobs.go.kr" target="_blank" rel="noopener">gojobs.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>잡알리오 (공공기관 채용정보)</h4><span class="tag">공공 일자리</span></div><p class="what">공공기관 채용공고를 한곳에서 검색합니다.</p><a class="go" href="https://job.alio.go.kr" target="_blank" rel="noopener">job.alio.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>서울시50플러스 일자리몽땅</h4><span class="tag">서울 거주</span></div><p class="what">서울에 사는 50~64세를 위한 일자리·교육·상담 정보입니다. 다른 지역은 시·도 중장년 지원센터를 찾아보세요.</p><a class="go" href="https://www.50plus.or.kr" target="_blank" rel="noopener">50plus.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>고용복지+센터</h4></div><p class="what">고용센터·복지 상담을 한 건물에서 받는 지역 센터를 찾습니다.</p><p class="tel">☎ 1350</p><a class="go" href="https://www.workplus.go.kr" target="_blank" rel="noopener">workplus.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>서울일자리포털</h4><span class="tag">서울 거주</span></div><p class="what">서울시와 자치구의 일자리·취업 교육 정보를 모아 봅니다.</p><p class="tel">다산콜센터 ☎ 120</p><a class="go" href="https://job.seoul.go.kr" target="_blank" rel="noopener">job.seoul.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>경기도일자리재단</h4><span class="tag">경기 거주</span></div><p class="what">경기도 중장년 일자리·교육 사업과 취업 지원을 확인합니다.</p><a class="go" href="https://www.gjf.or.kr" target="_blank" rel="noopener">gjf.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>클린아이 잡플러스</h4><span class="tag">공공 일자리</span></div><p class="what">지방 공공기관(공사·공단·출연기관) 채용공고를 모아 봅니다.</p><a class="go" href="https://job.cleaneye.go.kr" target="_blank" rel="noopener">job.cleaneye.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>한국시니어클럽협회</h4><span class="tag">60세 이상</span></div><p class="what">가까운 시니어클럽을 찾아 노인일자리 상담과 신청을 합니다.</p><a class="go" href="https://www.silverpower.or.kr" target="_blank" rel="noopener">silverpower.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="job"><div class="sh"><h4>도농인력중개플랫폼</h4><span class="tag">농촌 일자리</span></div><p class="what">일손이 필요한 농가와 도시민을 이어 주는 단기·계절 농촌 일자리를 찾습니다.</p><a class="go" href="https://www.agriwork.kr" target="_blank" rel="noopener">agriwork.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="learn"><h2>교육·자격</h2><p>배우고 자격을 따는 곳</p><div class="grid"><article class="site" data-g="learn"><div class="sh"><h4>Q-Net (국가자격)</h4><span class="tag">자격증</span></div><p class="what">국가기술자격 시험 일정, 응시 자격, 원서 접수, 합격 발표를 확인합니다.</p><p class="tel">☎ 1644-8000</p><a class="go" href="https://www.q-net.or.kr" target="_blank" rel="noopener">q-net.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="learn"><div class="sh"><h4>민간자격정보서비스</h4><span class="tag">자격증</span></div><p class="what">민간자격이 정식 등록된 자격인지 확인합니다. 비싼 교재비를 요구하는 자격은 먼저 여기서 확인하세요.</p><a class="go" href="https://www.pqi.or.kr" target="_blank" rel="noopener">pqi.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="learn"><div class="sh"><h4>K-MOOC</h4><span class="tag">무료 강의</span></div><p class="what">대학 강의를 무료로 온라인 수강합니다.</p><a class="go" href="https://www.kmooc.kr" target="_blank" rel="noopener">kmooc.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="learn"><div class="sh"><h4>디지털배움터</h4><span class="tag">디지털·AI</span></div><p class="what">휴대폰·키오스크·AI 활용 같은 디지털 교육을 동네 가까운 곳에서 무료로 배웁니다.</p><a class="go" href="https://www.xn--2z1bw8k1pjz5ccumkb.kr" target="_blank" rel="noopener">디지털배움터.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="learn"><div class="sh"><h4>평생교육이용권</h4><span class="tag">수강료 지원</span></div><p class="what">대상자에게 평생교육 강좌 수강료를 지원합니다. 지역마다 신청 기간이 달라 공고를 확인합니다.</p><a class="go" href="https://www.lllcard.kr" target="_blank" rel="noopener">lllcard.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="learn"><div class="sh"><h4>한국폴리텍대학 (신중년 특화과정)</h4><span class="tag">직업훈련</span></div><p class="what">중장년 대상 기술·돌봄 직업훈련 과정과 입학 일정을 확인합니다.</p><a class="go" href="https://ipsi.kopo.ac.kr" target="_blank" rel="noopener">ipsi.kopo.ac.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="biz"><h2>창업·사회공헌</h2><p>가게를 열거나 의미 있는 일을 시작할 때</p><div class="grid"><article class="site" data-g="biz"><div class="sh"><h4>K-Startup (창업지원포털)</h4><span class="tag">창업</span></div><p class="what">정부 창업 지원사업 공고, 창업 교육, 중장년 기술창업센터 정보를 확인합니다.</p><p class="tel">☎ 1357 (중소기업 통합콜센터)</p><a class="go" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">k-startup.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>소상공인24</h4><span class="tag">가게 창업</span></div><p class="what">가게 창업 교육, 정책자금, 경영 지원 같은 소상공인 지원사업을 신청합니다.</p><a class="go" href="https://www.sbiz24.kr" target="_blank" rel="noopener">sbiz24.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>기업마당</h4></div><p class="what">중앙부처·지자체의 기업 지원사업 공고를 모아 봅니다.</p><a class="go" href="https://www.bizinfo.go.kr" target="_blank" rel="noopener">bizinfo.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>한국사회적기업진흥원</h4><span class="tag">사회공헌</span></div><p class="what">사회적기업·협동조합 설립과 창업 지원을 알아봅니다.</p><a class="go" href="https://www.socialenterprise.or.kr" target="_blank" rel="noopener">socialenterprise.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>소상공인365 (상권 분석)</h4><span class="tag">가게 창업</span></div><p class="what">가게 자리를 고르기 전에 상권·매출·유동인구 정보를 무료로 분석합니다.</p><a class="go" href="https://bigdata.sbiz.or.kr" target="_blank" rel="noopener">bigdata.sbiz.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>소상공인 지식배움터</h4><span class="tag">가게 창업</span></div><p class="what">창업·경영 온라인 교육을 무료로 듣습니다. 정책자금 신청에 필요한 교육도 있습니다.</p><a class="go" href="https://edu.sbiz.or.kr" target="_blank" rel="noopener">edu.sbiz.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>희망리턴패키지</h4><span class="tag">폐업·재기</span></div><p class="what">가게를 정리하는 소상공인의 컨설팅·재취업·재창업을 지원합니다.</p><p class="tel">☎ 1357</p><a class="go" href="https://hope.sbiz.or.kr" target="_blank" rel="noopener">hope.sbiz.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>가맹사업거래 (공정거래위원회)</h4><span class="tag">프랜차이즈</span></div><p class="what">프랜차이즈 가맹 전에 정보공개서로 가맹점 수·매출·폐점률을 비교합니다.</p><a class="go" href="https://franchise.ftc.go.kr" target="_blank" rel="noopener">franchise.ftc.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>온라인법인설립시스템</h4></div><p class="what">법인으로 창업할 때 설립 절차를 온라인으로 처리해 비용을 줄입니다.</p><a class="go" href="https://www.startbiz.go.kr" target="_blank" rel="noopener">startbiz.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="biz"><div class="sh"><h4>그린대로 (귀농귀촌종합센터)</h4><span class="tag">귀농·귀촌</span></div><p class="what">농림축산식품부의 귀농·귀촌 통합 사이트입니다. 귀농 교육, 지역별 지원 정책, 창업자금·주택 지원, 온라인·방문 상담을 한곳에서 봅니다.</p><p class="tel">☎ 1899-9097</p><a class="go" href="https://www.greendaero.go.kr" target="_blank" rel="noopener">greendaero.go.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="money"><h2>재무·제도</h2><p>연금·노후자금·복지 혜택을 확인하는 곳</p><div class="grid"><article class="site" data-g="money"><div class="sh"><h4>내 곁에 국민연금 (국민연금공단)</h4><span class="tag">연금</span></div><p class="what">예상 연금액, 가입 기간, 임의계속가입, 수령 시기를 확인합니다. 같은 이름의 앱도 있습니다.</p><p class="tel">☎ 1355</p><a class="go" href="https://www.nps.or.kr" target="_blank" rel="noopener">nps.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>통합연금포털</h4><span class="tag">연금</span></div><p class="what">국민연금·퇴직연금·개인연금을 한 화면에서 모아 보고 노후 재무설계를 해 봅니다.</p><a class="go" href="https://100lifeplan.fss.or.kr" target="_blank" rel="noopener">100lifeplan.fss.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>파인 (금융소비자 정보포털)</h4></div><p class="what">숨은 금융자산 찾기, 금융상품 비교, 금융 민원을 한곳에서 봅니다.</p><p class="tel">금융감독원 ☎ 1332</p><a class="go" href="https://fine.fss.or.kr" target="_blank" rel="noopener">fine.fss.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>주택연금 (한국주택금융공사)</h4></div><p class="what">집을 담보로 평생 연금을 받는 주택연금의 조건과 예상 수령액을 확인합니다.</p><p class="tel">☎ 1688-8114</p><a class="go" href="https://www.hf.go.kr" target="_blank" rel="noopener">hf.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>서민금융진흥원</h4></div><p class="what">서민금융 상품과 채무조정, 금융 교육을 안내받습니다. 불법 사금융 대신 이용하세요.</p><p class="tel">서민금융콜센터 ☎ 1397</p><a class="go" href="https://www.kinfa.or.kr" target="_blank" rel="noopener">kinfa.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>복지로</h4><span class="tag">혜택 찾기</span></div><p class="what">나와 가족이 받을 수 있는 복지 서비스를 찾고 신청합니다.</p><p class="tel">보건복지상담센터 ☎ 129</p><a class="go" href="https://www.bokjiro.go.kr" target="_blank" rel="noopener">bokjiro.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>보조금24 (정부24)</h4><span class="tag">혜택 찾기</span></div><p class="what">나이·소득에 맞는 정부 지원금과 혜택을 한 번에 조회합니다.</p><a class="go" href="https://www.gov.kr" target="_blank" rel="noopener">gov.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>중앙노후준비지원센터</h4><span class="tag">노후 설계</span></div><p class="what">노후준비 종합진단을 하고 재무·건강·여가 상담을 예약합니다.</p><p class="tel">☎ 1355</p><a class="go" href="https://csa.nps.or.kr" target="_blank" rel="noopener">csa.nps.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>내보험 찾아줌</h4></div><p class="what">흩어진 내 보험 계약과 숨은 보험금을 한 번에 조회합니다.</p><a class="go" href="https://cont.insure.or.kr" target="_blank" rel="noopener">cont.insure.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="money"><div class="sh"><h4>근로복지공단</h4></div><p class="what">산재보험, 퇴직연금, 근로자 생활안정 지원 제도를 확인합니다.</p><p class="tel">☎ 1588-0075</p><a class="go" href="https://www.comwel.or.kr" target="_blank" rel="noopener">comwel.or.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="health"><h2>건강</h2><p>검진·치매·마음 건강을 챙기는 곳</p><div class="grid"><article class="site" data-g="health"><div class="sh"><h4>국민건강보험공단 (The건강보험)</h4><span class="tag">검진</span></div><p class="what">건강검진 대상 확인, 검진기관 찾기, 퇴직 후 건강보험 임의계속가입을 확인합니다. 같은 이름의 앱도 있습니다.</p><p class="tel">☎ 1577-1000</p><a class="go" href="https://www.nhis.or.kr" target="_blank" rel="noopener">nhis.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="health"><div class="sh"><h4>국가건강정보포털</h4></div><p class="what">질병관리청이 만든 믿을 수 있는 질병·건강 정보입니다. 인터넷 건강 정보가 헷갈릴 때 확인합니다.</p><a class="go" href="https://health.kdca.go.kr" target="_blank" rel="noopener">health.kdca.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="health"><div class="sh"><h4>중앙치매센터</h4><span class="tag">치매</span></div><p class="what">치매 자가점검, 가까운 치매안심센터 찾기, 가족 돌봄 정보를 봅니다.</p><p class="tel">치매상담콜센터 ☎ 1899-9988</p><a class="go" href="https://www.nid.or.kr" target="_blank" rel="noopener">nid.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="health"><div class="sh"><h4>국가정신건강정보포털</h4><span class="tag">마음 건강</span></div><p class="what">우울·스트레스 자가검진을 하고 가까운 정신건강복지센터를 찾습니다. 힘들 때는 24시간 전화 상담을 받을 수 있습니다.</p><p class="tel">정신건강위기상담 ☎ 1577-0199</p><a class="go" href="https://www.mentalhealth.go.kr" target="_blank" rel="noopener">mentalhealth.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="health"><div class="sh"><h4>국민체력100</h4><span class="tag">운동</span></div><p class="what">무료 체력 측정을 받고 나에게 맞는 운동 처방을 받습니다.</p><a class="go" href="https://nfa.kspo.or.kr" target="_blank" rel="noopener">nfa.kspo.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="health"><div class="sh"><h4>건강보험심사평가원</h4></div><p class="what">병원·약국을 찾고, 비급여 진료비를 병원별로 비교합니다.</p><p class="tel">☎ 1644-2000</p><a class="go" href="https://www.hira.or.kr" target="_blank" rel="noopener">hira.or.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="life"><h2>여가·봉사</h2><p>취미·문화·봉사로 시간을 채우는 곳</p><div class="grid"><article class="site" data-g="life"><div class="sh"><h4>1365 자원봉사포털</h4><span class="tag">봉사</span></div><p class="what">동네 자원봉사 활동을 찾아 신청하고 봉사 시간을 관리합니다.</p><a class="go" href="https://www.1365.go.kr" target="_blank" rel="noopener">1365.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>문화포털</h4><span class="tag">문화</span></div><p class="what">공연·전시·축제 등 문화 행사 정보를 찾습니다.</p><a class="go" href="https://www.culture.go.kr" target="_blank" rel="noopener">culture.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>문화누리카드</h4><span class="tag">대상 제한</span></div><p class="what">기초생활수급자·차상위계층에게 1인당 연 15만 원(2026년)의 문화·여행·체육 이용권을 줍니다. 2026년 발급 신청은 11월 30일까지입니다.</p><p class="tel">☎ 1544-3412</p><a class="go" href="https://www.mnuri.kr" target="_blank" rel="noopener">mnuri.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>가족센터</h4><span class="tag">관계</span></div><p class="what">부부·가족 관계 상담과 가족 프로그램을 운영하는 가까운 센터를 찾습니다.</p><p class="tel">☎ 1577-9337</p><a class="go" href="https://www.familynet.or.kr" target="_blank" rel="noopener">familynet.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>숲나들e</h4><span class="tag">자연·여행</span></div><p class="what">국립자연휴양림을 예약합니다. 주중은 선착순, 주말·성수기는 추첨입니다.</p><a class="go" href="https://www.foresttrip.go.kr" target="_blank" rel="noopener">foresttrip.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>치유농업ON</h4><span class="tag">자연·여행</span></div><p class="what">전국 치유농업 프로그램을 찾아 농촌에서 쉬고 배웁니다.</p><a class="go" href="https://www.agrohealing.go.kr" target="_blank" rel="noopener">agrohealing.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="life"><div class="sh"><h4>문화로 청춘</h4><span class="tag">문화</span></div><p class="what">어르신 대상 문화 프로그램과 실버문화페스티벌 소식을 봅니다.</p><a class="go" href="https://senior.kccf.or.kr" target="_blank" rel="noopener">senior.kccf.or.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="rights"><h2>법률·권리</h2><p>임금·근로조건·생활 법률이 궁금할 때</p><div class="grid"><article class="site" data-g="rights"><div class="sh"><h4>고용노동부 민원마당</h4><span class="tag">임금 체불</span></div><p class="what">임금을 받지 못했을 때 체불 진정을 하고 노동 관련 민원을 신청합니다.</p><p class="tel">☎ 1350</p><a class="go" href="https://minwon.moel.go.kr" target="_blank" rel="noopener">minwon.moel.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="rights"><div class="sh"><h4>최저임금위원회</h4><span class="tag">임금 확인</span></div><p class="what">올해 최저임금과 계산 방법을 확인합니다. 2026년 시급은 10,320원입니다.</p><a class="go" href="https://www.minimumwage.go.kr" target="_blank" rel="noopener">minimumwage.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="rights"><div class="sh"><h4>대한법률구조공단</h4><span class="tag">무료 상담</span></div><p class="what">임금·계약·생활 법률 문제를 무료로 상담받습니다.</p><p class="tel">☎ 132</p><a class="go" href="https://www.klac.or.kr" target="_blank" rel="noopener">klac.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="rights"><div class="sh"><h4>찾기쉬운 생활법령정보</h4></div><p class="what">근로계약·퇴직금·임대차 같은 생활 속 법률을 쉬운 말로 찾아봅니다.</p><a class="go" href="https://www.easylaw.go.kr" target="_blank" rel="noopener">easylaw.go.kr <span aria-hidden="true">↗</span></a></article></div></div><div class="cat" id="safe"><h2>사기 예방</h2><p>수상한 연락을 받았을 때</p><div class="grid"><article class="site" data-g="safe"><div class="sh"><h4>경찰청 사이버범죄 신고시스템</h4><span class="tag">긴급</span></div><p class="what">취업사기·보이스피싱이 의심되거나 이미 돈을 보냈다면 바로 신고합니다. 급할 때는 112에 전화합니다.</p><p class="tel">☎ 112</p><a class="go" href="https://ecrm.police.go.kr" target="_blank" rel="noopener">ecrm.police.go.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="safe"><div class="sh"><h4>금융감독원</h4></div><p class="what">보이스피싱 피해 상담, 불법 금융 신고를 합니다.</p><p class="tel">☎ 1332</p><a class="go" href="https://www.fss.or.kr" target="_blank" rel="noopener">fss.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="safe"><div class="sh"><h4>보호나라 (한국인터넷진흥원)</h4></div><p class="what">스미싱 문자·악성 앱 확인과 해킹 피해 상담을 받습니다.</p><p class="tel">☎ 118</p><a class="go" href="https://www.boho.or.kr" target="_blank" rel="noopener">boho.or.kr <span aria-hidden="true">↗</span></a></article><article class="site" data-g="safe"><div class="sh"><h4>명의도용방지서비스</h4></div><p class="what">내 이름으로 몰래 개통된 휴대폰이 있는지 조회하고 막습니다.</p><a class="go" href="https://www.msafer.or.kr" target="_blank" rel="noopener">msafer.or.kr <span aria-hidden="true">↗</span></a></article></div></div><p class="empty" id="empty" hidden>찾는 사이트가 없습니다. 다른 낱말로 검색해 보세요.</p></section>
+<footer class="muted" style="font-size:.88rem;border-top:1px solid var(--line);padding-top:16px">이 목록은 2026년 파일럿 교육 강의안·활동지에 소개된 사이트와 각 기관의 공개 안내를 바탕으로 2026년 10월에 정리했습니다. 함께 보면 좋은 자료: <a href="ai-trends.html">AI 트렌드·용어집</a> · <a href="index.html">AI 실습 모음</a></footer>
+</div>
+<script>
+(function(){
+  var q=document.getElementById('q'),chips=[].slice.call(document.querySelectorAll('.chip')),
+      sites=[].slice.call(document.querySelectorAll('.site')),cats=[].slice.call(document.querySelectorAll('.cat')),
+      empty=document.getElementById('empty'),g='all';
+  function norm(s){return (s||'').toLowerCase().replace(/\s+/g,'');}
+  function run(){var k=norm(q.value),n=0;
+    sites.forEach(function(s){var ok=(g==='all'||s.dataset.g===g)&&(!k||norm(s.textContent).indexOf(k)>-1);s.hidden=!ok;if(ok)n++;});
+    cats.forEach(function(c){c.hidden=!c.querySelector('.site:not([hidden])');});
+    empty.hidden=n>0;}
+  q.addEventListener('input',run);
+  chips.forEach(function(c){c.addEventListener('click',function(){g=c.dataset.g;chips.forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');});run();});});
+})();
+</script>
+</body>
+</html>
