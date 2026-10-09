@@ -37,6 +37,7 @@ a.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .txt b{display:block;font-family:var(--f-display);font-size:1.12rem}
 .txt span{display:block;color:var(--muted);font-size:.93rem}
 .go{color:var(--accent);font-weight:700;font-size:1.3rem}
+a.card.intro{background:var(--accent-soft);border-color:var(--accent)}
 .soon{display:flex;gap:16px;align-items:center;border:1px dashed var(--line);border-radius:14px;padding:16px;color:var(--muted)}
 .soon .no{background:transparent;color:var(--muted);border:2px dashed var(--line)}
 footer{border-top:1px solid var(--line);padding-top:18px;font-size:.92rem;color:var(--muted)}
@@ -51,6 +52,13 @@ footer{border-top:1px solid var(--line);padding-top:18px;font-size:.92rem;color:
   </header>
 
   <ul>
+    <li>
+      <a class="card intro" href="about.html">
+        <span class="no">i</span>
+        <span class="txt"><b>처음 오셨나요? 재취업(경력)지원 서비스 소개</b><span>취지·목적·대상·근거 법령을 먼저 봅니다</span></span>
+        <span class="go" aria-hidden="true">›</span>
+      </a>
+    </li>
     <li>
       <a class="card" href="01.html">
         <span class="no">01</span>
